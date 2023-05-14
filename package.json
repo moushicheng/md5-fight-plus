@@ -13,5 +13,8 @@
   "devDependencies": {
     "@types/node": "^20.1.4",
     "tslib": "^2.5.0"
+  },
+  "dependencies": {
+    "blueimp-md5": "^2.19.0"
   }
 }
