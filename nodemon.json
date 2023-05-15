@@ -1,5 +1,5 @@
 {
-	"watch": ["src/*","index.ts"],
+	"watch": ["src","./index.ts"],
 	"ext": "ts,js,json",
-    "exec": "tsc && node --inspect dist/index.js"
+    "exec": "ts-node -r tsconfig-paths/register index.ts"
 }
