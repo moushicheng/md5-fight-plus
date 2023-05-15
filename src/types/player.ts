@@ -51,7 +51,12 @@ export type PlayerRuntimeProperty = {
     speed: number //速度
     armor: number //护甲
     magicArmor: number //魔法护甲
+    stunned: boolean //是否眩晕
 }
-export type PlayerInstance = {
+export type PlayerInstanceProperty = {
     baseProperty?: PlayerBaseProperty
+    level?: number
+    skills?: any[] //技能组
+    runtimeProperty?: PlayerRuntimeProperty
+    hooks?: any
 }
