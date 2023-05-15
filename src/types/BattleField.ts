@@ -1,3 +1,3 @@
-export type BattleField = {
+export type BattleFieldType = {
     test: number
 }
