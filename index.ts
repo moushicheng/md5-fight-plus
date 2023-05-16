@@ -1,3 +1,4 @@
+
 import { createPlayer } from "./src/player";
 
 const p1 = createPlayer('moush')

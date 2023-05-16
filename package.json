@@ -7,16 +7,21 @@
     "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["MD5","fight","game"],
+  "keywords": [
+    "MD5",
+    "fight",
+    "game"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/lodash": "^4.14.194",
     "@types/node": "^20.1.4",
     "tslib": "^2.5.0"
   },
   "dependencies": {
     "blueimp-md5": "^2.19.0",
-    "tapable": "^2.2.1",
+    "lodash": "^4.17.21",
     "tsconfig-paths": "^4.2.0"
   }
 }
