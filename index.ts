@@ -1,4 +1,4 @@
 import { createPlayer } from "./src/player";
 
-const p = createPlayer('moush')
-console.log(p);
+const p1 = createPlayer('moush')
+const p2 = createPlayer('p2')

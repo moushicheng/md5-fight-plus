@@ -47,8 +47,6 @@ function getBaseProperty(md5Numbers: number[]) {
 }
 
 export const createPlayer = function (name: string) {
-
-
     const md5Numbers = calculateProperty(name)
     //属性设定
     const baseProperty = getBaseProperty(md5Numbers)
