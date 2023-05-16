@@ -24,10 +24,13 @@ hook.tap('@func2', (props) => {
     console.log('@f2', props);
     return 233
 })
+hook.tap('@err_fun', (props) => {
+    (props as HooksType).player1 = '1'
+    return undefined;
+})
 
-hook.call({
+const result = hook.call({
     player1: '1',
     player2: '2'
-}, (result) => {
-    console.log('done!', result);
 })
+console.log('@result:', result);

@@ -9,9 +9,11 @@ type SyncBailHookOptions<T> = {
 export class BailEvent {
     message: string
     time: Date
+
     constructor(message: string = 'bailed') {
         this.message = message
         this.time = new Date()
+
     }
 }
 
@@ -19,10 +21,12 @@ export class SyncBailHook<T>{
     bailedResult: any
     cbs: { options: TapOptions, func: (params: T) => any }[]
     options: SyncBailHookOptions<T>
+    error: any
     constructor(options?: SyncBailHookOptions<T>) {
         this.bailedResult = undefined
         this.cbs = []
         this.options = options
+        this.error = undefined
     }
     tap(options: string | TapOptions, callback: (params: T) => T) {
         const optionsFormatted = formatTapOptions(options)
@@ -32,7 +36,7 @@ export class SyncBailHook<T>{
         })
         this.cbs.sort((cb1, cb2) => cb1.options.stage - cb2.options.stage)
     }
-    call(params: T, lastCallback?: (error?: Error | BailEvent | T) => void) {
+    call(params: T) {
         this.bailedResult = params
         try {
             for (let i = 0; i < this.cbs.length; i++) {
@@ -46,10 +50,12 @@ export class SyncBailHook<T>{
                 if (this.bailedResult instanceof BailEvent) break;
             }
         } catch (err) {
-            console.log('error occur!', err);
-            lastCallback(err)
+            this.error = err;
+            console.log('error occur', err);
+            return;
         } finally {
-            lastCallback(this.bailedResult)
+            if (!_.isUndefined(this.error)) return
+            return this.bailedResult
         }
     }
 }
