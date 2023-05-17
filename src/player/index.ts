@@ -1,6 +1,7 @@
 import md5 from 'blueimp-md5'
 import { PlayerBaseProperty, PlayerInstanceProperty, PlayerRuntimeProperty, PlayerStatus } from 'src/types/player';
 import { SyncBailHook } from '@/hooks/SyncBailHook';
+import { findMinProperty } from './utils';
 
 
 const playerStatusList: PlayerStatus[] = [
@@ -26,23 +27,41 @@ function calculateProperty(name) {
 function getBaseProperty(md5Numbers: number[]) {
 
     const baseProperty: PlayerBaseProperty = {
-        STR: undefined,
-        INT: undefined,
-        MANA: undefined,
-        CON: undefined,
-        SPD: undefined,
+        STR: 0,
+        CON: 0,
+        SPD: 0,
     }
     let total = 0
     for (const key in baseProperty) {
         const val = md5Numbers.pop()
-        baseProperty[key] = val
+        baseProperty[key] += val
         total += val;
     }
+
     for (const key in baseProperty) {
-        baseProperty[key] = Math.round(baseProperty[key] * 100 / total)
+        baseProperty[key] = Math.round(baseProperty[key] * 30 / total)
     }
+    adjustProperty(baseProperty)//调整基础值
+    console.log(baseProperty);
     return baseProperty
 }
+function adjustProperty(baseProperty: PlayerBaseProperty) {
+    const addition = {
+        STR: 1,
+        CON: 5,
+        SPD: 0,
+    }
+    for (const key in baseProperty) {
+        baseProperty[key] += addition[key]
+    }
+    if (baseProperty.SPD > 10) {
+        const diff = baseProperty.SPD - 5;
+        const key = findMinProperty(baseProperty)
+        baseProperty[key] += diff
+        baseProperty.SPD -= diff
+    }
+}
+
 
 export const createPlayer = function (name: string) {
     const md5Numbers = calculateProperty(name)
@@ -56,12 +75,8 @@ export const createPlayer = function (name: string) {
     const hooks = createPlayerHook();
     const runtimeProperty: PlayerRuntimeProperty = {
         hp: undefined,
-        mp: undefined,
         attack: undefined,
-        magic: undefined,
         speed: undefined,
-        armor: undefined,
-        magicArmor: undefined,
         stunned: false
     }
     const playerParameter: PlayerInstanceProperty = {
