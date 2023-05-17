@@ -1,3 +1,4 @@
+import { BailEvent } from '@/events/BailEvent'
 import _ from 'lodash'
 type TapOptions = {
     name?: string,
@@ -7,16 +8,6 @@ type SyncBailHookOptions<T> = {
     intercept?: (params?: T) => any
 }
 type LastCallback = (params: any) => any
-export class BailEvent {
-    message: string
-    time: Date
-
-    constructor(message: string = 'bailed') {
-        this.message = message
-        this.time = new Date()
-
-    }
-}
 
 export class SyncBailHook<T>{
     bailedResult: any
