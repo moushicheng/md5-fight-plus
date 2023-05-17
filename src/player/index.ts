@@ -1,6 +1,6 @@
 import md5 from 'blueimp-md5'
 import { PlayerBaseProperty, PlayerInstanceProperty, PlayerRuntimeProperty, PlayerStatus } from 'src/types/player';
-import { createPlayerHook } from 'src/hooks/player';
+import { SyncBailHook } from '@/hooks/SyncBailHook';
 
 
 const playerStatusList: PlayerStatus[] = [
@@ -28,8 +28,6 @@ function getBaseProperty(md5Numbers: number[]) {
     const baseProperty: PlayerBaseProperty = {
         STR: undefined,
         INT: undefined,
-        DEF: undefined,
-        MND: undefined,
         MANA: undefined,
         CON: undefined,
         SPD: undefined,
@@ -67,6 +65,7 @@ export const createPlayer = function (name: string) {
         stunned: false
     }
     const playerParameter: PlayerInstanceProperty = {
+        name,
         baseProperty,
         level,
         skills,
@@ -79,3 +78,10 @@ export const createPlayer = function (name: string) {
     return currentPlayer
 }
 
+
+export const createPlayerHook = () => {
+    const hooks = {
+        initProperty: new SyncBailHook<PlayerInstanceProperty>()
+    }
+    return hooks
+}

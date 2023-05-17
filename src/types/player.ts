@@ -38,8 +38,6 @@ export enum PlayerType {
 export type PlayerBaseProperty = {
     STR: number,//力量,影响attack，hp
     INT: number,//智力，影响magic
-    DEF: number,//防御力
-    MND: number,//精神
     MANA: number,//魔力,影响mp
     CON: number,//体质,影响hp
     SPD: number//速度,影响speed
@@ -56,6 +54,7 @@ export type PlayerRuntimeProperty = {
     stunned: boolean //是否眩晕
 }
 export type PlayerInstanceProperty = {
+    name: string
     baseProperty?: PlayerBaseProperty
     level?: number
     skills?: any[] //技能组
