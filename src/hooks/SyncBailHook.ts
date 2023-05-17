@@ -6,6 +6,7 @@ type TapOptions = {
 type SyncBailHookOptions<T> = {
     intercept?: (params?: T) => any
 }
+type LastCallback = (params: any) => any
 export class BailEvent {
     message: string
     time: Date
@@ -22,13 +23,15 @@ export class SyncBailHook<T>{
     cbs: { options: TapOptions, func: (params: T) => any }[]
     options: SyncBailHookOptions<T>
     error: any
-    constructor(options?: SyncBailHookOptions<T>) {
+    lastCallback: LastCallback
+    constructor(options: SyncBailHookOptions<T> = {}) {
         this.bailedResult = undefined
         this.cbs = []
         this.options = options
         this.error = undefined
+        this.lastCallback = (params) => params
     }
-    tap(options: string | TapOptions, callback: (params: T) => T) {
+    tap(options: string | TapOptions, callback: (params: T) => T | BailEvent) {
         const optionsFormatted = formatTapOptions(options)
         this.cbs.push({
             options: optionsFormatted,
@@ -36,7 +39,7 @@ export class SyncBailHook<T>{
         })
         this.cbs.sort((cb1, cb2) => cb1.options.stage - cb2.options.stage)
     }
-    call(params: T) {
+    call(params?: T) {
         this.bailedResult = params
         try {
             for (let i = 0; i < this.cbs.length; i++) {
@@ -51,12 +54,16 @@ export class SyncBailHook<T>{
             }
         } catch (err) {
             this.error = err;
-            console.log('error occur', err);
-            return;
         } finally {
-            if (!_.isUndefined(this.error)) return
-            return this.bailedResult
+            if (this.error) throw this.error
+            return this.lastCallback(this.bailedResult)
         }
+    }
+    registerLastCallback(cb: LastCallback) {
+        this.lastCallback = cb;
+    }
+    registerIntercept(cb) {
+        this.options.intercept = cb;
     }
 }
 function formatTapOptions(options: string | TapOptions) {
