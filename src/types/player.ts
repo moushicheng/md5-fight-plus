@@ -1,3 +1,5 @@
+import { BattleFieldInstance } from "./battleField"
+
 export const enum PlayerStatus {
     /**
      * The `ready` status means the `Player` is doing nothing.
@@ -59,4 +61,5 @@ export type PlayerInstanceProperty = {
     skills?: any[] //技能组
     runtimeProperty?: PlayerRuntimeProperty
     hooks?: any
+    battleField: BattleFieldInstance
 }

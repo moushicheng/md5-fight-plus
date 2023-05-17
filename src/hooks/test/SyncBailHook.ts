@@ -26,7 +26,7 @@ hook.tap('@func2', (props) => {
 })
 hook.tap('@err_fun', (props) => {
     (props as HooksType).player1 = '1'
-    return undefined;
+    return 333
 })
 
 const result = hook.call({

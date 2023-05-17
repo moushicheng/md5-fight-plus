@@ -71,7 +71,8 @@ export const createPlayer = function (name: string) {
         level,
         skills,
         hooks,
-        runtimeProperty
+        runtimeProperty,
+        battleField: undefined
     };
     hooks.initProperty.call(playerParameter)
     const currentPlayer: PlayerInstanceProperty = playerParameter
