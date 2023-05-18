@@ -1,7 +1,7 @@
 import md5 from 'blueimp-md5'
 import { PlayerBaseProperty, PlayerInstanceProperty, PlayerRuntimeProperty, PlayerStatus } from 'src/types/player';
 import { SyncBailHook } from '@/hooks/SyncBailHook';
-import { findMinProperty } from './utils';
+import { BattleFieldInstance } from '@/types/battleField';
 
 
 const playerStatusList: PlayerStatus[] = [
@@ -62,7 +62,7 @@ function adjustPropertyBefore(baseProperty: PlayerBaseProperty, total: number) {
         baseProperty[key] = baseProperty[key] * 40 / total
     }
     //调整攻击力
-    if (baseProperty['STR'] > 10) {
+    if (baseProperty['STR'] > 7) {
         const diff = baseProperty['STR'] * 0.4
         baseProperty['STR'] -= diff;
         baseProperty['CON'] += diff * 0.9
@@ -113,7 +113,8 @@ export const createPlayer = function (name: string) {
 
 export const createPlayerHook = () => {
     const hooks = {
-        initProperty: new SyncBailHook<PlayerInstanceProperty>()
+        initProperty: new SyncBailHook<PlayerInstanceProperty>(),
+        prepare: new SyncBailHook<BattleFieldInstance>()
     }
     return hooks
 }

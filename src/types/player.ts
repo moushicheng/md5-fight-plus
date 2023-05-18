@@ -1,3 +1,4 @@
+import { SyncBailHook } from "@/hooks/SyncBailHook"
 import { BattleFieldInstance } from "./battleField"
 
 export const enum PlayerStatus {
@@ -55,6 +56,10 @@ export type PlayerInstanceProperty = {
     level?: number
     skills?: any[] //技能组
     runtimeProperty?: PlayerRuntimeProperty
-    hooks?: any
+    hooks?: {
+        prepare: SyncBailHook<BattleFieldInstance>,
+        [props: string]: SyncBailHook<any>
+    }
+    actionCount?: number //行动计数
     battleField: BattleFieldInstance
 }

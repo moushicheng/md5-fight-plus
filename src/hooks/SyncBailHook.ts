@@ -39,9 +39,11 @@ export class SyncBailHook<T>{
                 if (this.bailedResult instanceof BailEvent) break;
 
                 //拦截器
-                this.bailedResult = this.options.intercept?.(this.bailedResult)
-                //如果返回值是BailEvent,则会直接熔断。
-                if (this.bailedResult instanceof BailEvent) break;
+                if (this.options.intercept) {
+                    this.bailedResult = this.options.intercept?.(this.bailedResult)
+                    //如果返回值是BailEvent,则会直接熔断。
+                    if (this.bailedResult instanceof BailEvent) break;
+                }
             }
         } catch (err) {
             this.error = err;

@@ -36,6 +36,6 @@ export function initHooks(battleField: BattleFieldInstance) {
         init: new SyncBailHook<BattleFieldInstance>(),
         // 计算运行时属性
         // 计算玩家技能组
-        fightStart: new SyncBailHook(),
+        fightStart: new SyncBailHook<BattleFieldInstance>(),
     }
 }
