@@ -24,41 +24,57 @@ function calculateProperty(name) {
     }
     return propertyNumber
 }
-function getBaseProperty(md5Numbers: number[]) {
-
+function getBaseProperty(dataSources: number[]) {
     const baseProperty: PlayerBaseProperty = {
         STR: 0,
-        CON: 0,
         SPD: 0,
+        MANA: 0,
+        CON: 0,
     }
     let total = 0
     for (const key in baseProperty) {
-        const val = md5Numbers.pop()
-        baseProperty[key] += val
-        total += val;
+        const val = dataSources.shift()
+        const valAdjusted = val
+        baseProperty[key] += val//调整基础值
+        total += valAdjusted
     }
+    adjustPropertyBefore(baseProperty, total)
 
-    for (const key in baseProperty) {
-        baseProperty[key] = Math.round(baseProperty[key] * 30 / total)
-    }
-    adjustProperty(baseProperty)//调整基础值
     console.log(baseProperty);
     return baseProperty
 }
-function adjustProperty(baseProperty: PlayerBaseProperty) {
-    const addition = {
-        STR: 1,
-        CON: 5,
-        SPD: 0,
-    }
+function adjustPropertyBefore(baseProperty: PlayerBaseProperty, total: number) {
+    //调整生命值
+    let max = -1;
+    let maxKey = ''
     for (const key in baseProperty) {
-        baseProperty[key] += addition[key]
+        if (max < baseProperty[key]) {
+            max = baseProperty[key]
+            maxKey = key;
+        }
     }
-    if (baseProperty.SPD > 10) {
-        const diff = baseProperty.SPD - 5;
-        const key = findMinProperty(baseProperty)
-        baseProperty[key] += diff
-        baseProperty.SPD -= diff
+    if (maxKey !== 'CON') {
+        baseProperty[maxKey] = baseProperty['CON']
+        baseProperty['CON'] = max;
+    }
+    //x基数
+    for (const key in baseProperty) {
+        baseProperty[key] = baseProperty[key] * 40 / total
+    }
+    //调整攻击力
+    if (baseProperty['STR'] > 10) {
+        const diff = baseProperty['STR'] * 0.4
+        baseProperty['STR'] -= diff;
+        baseProperty['CON'] += diff * 0.9
+        baseProperty['MANA'] += diff * 0.1
+    }
+    if (baseProperty['STR'] < 0.5) {
+        baseProperty['STR'] += 1
+    }
+
+    //规整化数字
+    for (const key in baseProperty) {
+        baseProperty[key] = Math.round(baseProperty[key])
     }
 }
 
@@ -77,6 +93,7 @@ export const createPlayer = function (name: string) {
         hp: undefined,
         attack: undefined,
         speed: undefined,
+        mana: undefined,
         stunned: false
     }
     const playerParameter: PlayerInstanceProperty = {

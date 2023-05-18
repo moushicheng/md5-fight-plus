@@ -38,13 +38,15 @@ export enum PlayerType {
 export type PlayerBaseProperty = {
     STR: number,//力量,影响attack，hp
     CON: number,//体质,影响hp
-    SPD: number//速度,影响speed
+    SPD: number,//速度,影响speed
+    MANA: number,//法力值
 }
 // 战斗时属性，从基本属性映射， buff，debuff之类只能影响运行时属性。
 export type PlayerRuntimeProperty = {
     hp: number     //生命值
     attack: number //攻击力
     speed: number //速度
+    mana: number //魔力
     stunned: boolean //是否眩晕
 }
 export type PlayerInstanceProperty = {
