@@ -61,6 +61,8 @@ function adjustPropertyBefore(baseProperty: PlayerBaseProperty, total: number) {
     for (const key in baseProperty) {
         baseProperty[key] = baseProperty[key] * 40 / total
     }
+    if (baseProperty['SPD'] < 3) baseProperty['SPD'] = 3
+
     //调整攻击力
     if (baseProperty['STR'] > 7) {
         const diff = baseProperty['STR'] * 0.4
@@ -94,7 +96,9 @@ export const createPlayer = function (name: string) {
         attack: undefined,
         speed: undefined,
         mana: undefined,
-        stunned: false
+        stunned: false,
+        actionTimes: 0,//行动计数
+        roundCount: 0
     }
     const playerParameter: PlayerInstanceProperty = {
         name,

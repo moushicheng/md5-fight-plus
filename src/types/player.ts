@@ -49,6 +49,8 @@ export type PlayerRuntimeProperty = {
     speed: number //速度
     mana: number //魔力
     stunned: boolean //是否眩晕
+    roundCount: number//回合次数
+    actionTimes: number//行动计数
 }
 export type PlayerInstanceProperty = {
     name: string
