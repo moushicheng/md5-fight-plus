@@ -53,6 +53,7 @@ export type PlayerRuntimeProperty = {
 export type PlayerRuntimeContext = {
     roundCount: number//回合次数
     actionTimes: number//行动计数
+    skills: any[]
 }
 
 export type PlayerInstanceProperty = {
@@ -63,9 +64,15 @@ export type PlayerInstanceProperty = {
     runtimeProperty?: PlayerRuntimeProperty
     runtimeContext?: PlayerRuntimeContext
     hooks?: {
+        initProperty: SyncBailHook<PlayerInstanceProperty>,
         prepare: SyncBailHook<BattleFieldInstance>,
+        beforeAttack: SyncBailHook<BattleFieldInstance>,
+        beforeUnderAttack: SyncBailHook<BattleFieldInstance>,
+        onAttack: SyncBailHook<BattleFieldInstance | number>,
+        onUnderAttack: SyncBailHook<{ battleField: BattleFieldInstance, damage: number }>,
+        afterAttack: SyncBailHook<BattleFieldInstance>,
+        afterUnderAttack: SyncBailHook<BattleFieldInstance>,
         [props: string]: SyncBailHook<any>
     }
-    actionCount?: number //行动计数
     battleField: BattleFieldInstance
 }

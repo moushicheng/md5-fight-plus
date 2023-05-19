@@ -9,7 +9,8 @@ export type BattleFieldInstance = {
     round?: () => void
     roundCount?: number
     roundHooks?: {
-        roundStart: SyncBailHook<BattleFieldInstance>
+        roundStart: SyncBailHook<BattleFieldInstance>,
+        roundEnd: SyncBailHook<BattleFieldInstance>,
         [props: string]: SyncBailHook<any>
     }
     fight?: () => void

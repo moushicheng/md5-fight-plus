@@ -63,16 +63,16 @@ function adjustPropertyBefore(baseProperty: PlayerBaseProperty, total: number) {
     }
     if (baseProperty['SPD'] < 3) baseProperty['SPD'] = 3
 
-    //调整攻击力
-    if (baseProperty['STR'] > 7) {
-        const diff = baseProperty['STR'] * 0.4
-        baseProperty['STR'] -= diff;
-        baseProperty['CON'] += diff * 0.9
-        baseProperty['MANA'] += diff * 0.1
-    }
-    if (baseProperty['STR'] < 0.5) {
-        baseProperty['STR'] += 1
-    }
+    // //调整攻击力
+    // if (baseProperty['STR'] > 7) {
+    //     const diff = baseProperty['STR'] * 0.4
+    //     baseProperty['STR'] -= diff;
+    //     baseProperty['CON'] += diff * 0.9
+    //     baseProperty['MANA'] += diff * 0.1
+    // }
+    // if (baseProperty['STR'] < 0.5) {
+    //     baseProperty['STR'] += 1
+    // }
 
     //规整化数字
     for (const key in baseProperty) {
@@ -88,7 +88,7 @@ export const createPlayer = function (name: string) {
     //等级设定
     const level = 1;
     //技能组
-    const skills = new Array();
+    const skills = ['a', 'a', 'a', 'a', 'a'];
     //hooks列表
     const hooks = createPlayerHook();
     const runtimeProperty: PlayerRuntimeProperty = {
@@ -100,7 +100,8 @@ export const createPlayer = function (name: string) {
     }
     const runtimeContext: PlayerRuntimeContext = {
         actionTimes: 0,//行动计数
-        roundCount: 0
+        roundCount: 0,
+        skills: []
     }
     const playerParameter: PlayerInstanceProperty = {
         name,
@@ -121,7 +122,13 @@ export const createPlayer = function (name: string) {
 export const createPlayerHook = () => {
     const hooks = {
         initProperty: new SyncBailHook<PlayerInstanceProperty>(),
-        prepare: new SyncBailHook<BattleFieldInstance>()
+        prepare: new SyncBailHook<BattleFieldInstance>(),
+        beforeAttack: new SyncBailHook<BattleFieldInstance>(),
+        beforeUnderAttack: new SyncBailHook<BattleFieldInstance>(),
+        onAttack: new SyncBailHook<BattleFieldInstance>(),
+        onUnderAttack: new SyncBailHook<{ battleField: BattleFieldInstance, damage: number }>(),
+        afterAttack: new SyncBailHook<BattleFieldInstance>(),
+        afterUnderAttack: new SyncBailHook<BattleFieldInstance>(),
     }
     return hooks
 }

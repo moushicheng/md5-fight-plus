@@ -13,10 +13,10 @@ export function initRound(battleField: BattleFieldInstance) {
             attacker.hooks.prepare.call(battleField)
             //攻击前
             attacker.hooks.beforeAttack.call(battleField)
-            defender.hooks.beforeUnderAttacked.call(battleField)
+            defender.hooks.beforeUnderAttack.call(battleField)
             //攻击时
-            const damage = attacker.hooks.onAttack.call(battleField)
-            defender.hooks.onUnderAttack.call({ battleField, damage });
+            const damage = attacker.hooks.onAttack.call(battleField)    //攻击
+            defender.hooks.onUnderAttack.call({ battleField, damage }); //承受攻击
             //攻击后
             attacker.hooks.afterAttack.call(battleField);
             defender.hooks.afterUnderAttack.call(battleField)
@@ -30,6 +30,7 @@ export function initRound(battleField: BattleFieldInstance) {
     }
     battleField.roundHooks = {
         //职责:选择进攻顺序,选择技能组
+        roundEnd: new SyncBailHook<BattleFieldInstance>(),
         roundStart: new SyncBailHook<BattleFieldInstance>()
     }
     battleField.roundCount = 0;
