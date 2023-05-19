@@ -1,5 +1,5 @@
 import md5 from 'blueimp-md5'
-import { PlayerBaseProperty, PlayerInstanceProperty, PlayerRuntimeProperty, PlayerStatus } from 'src/types/player';
+import { PlayerBaseProperty, PlayerInstanceProperty, PlayerRuntimeContext, PlayerRuntimeProperty, PlayerStatus } from 'src/types/player';
 import { SyncBailHook } from '@/hooks/SyncBailHook';
 import { BattleFieldInstance } from '@/types/battleField';
 
@@ -97,6 +97,8 @@ export const createPlayer = function (name: string) {
         speed: undefined,
         mana: undefined,
         stunned: false,
+    }
+    const runtimeContext: PlayerRuntimeContext = {
         actionTimes: 0,//行动计数
         roundCount: 0
     }
@@ -107,6 +109,7 @@ export const createPlayer = function (name: string) {
         skills,
         hooks,
         runtimeProperty,
+        runtimeContext,
         battleField: undefined
     };
     hooks.initProperty.call(playerParameter)

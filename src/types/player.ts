@@ -49,15 +49,19 @@ export type PlayerRuntimeProperty = {
     speed: number //速度
     mana: number //魔力
     stunned: boolean //是否眩晕
+}
+export type PlayerRuntimeContext = {
     roundCount: number//回合次数
     actionTimes: number//行动计数
 }
+
 export type PlayerInstanceProperty = {
     name: string
     baseProperty?: PlayerBaseProperty
     level?: number
     skills?: any[] //技能组
     runtimeProperty?: PlayerRuntimeProperty
+    runtimeContext?: PlayerRuntimeContext
     hooks?: {
         prepare: SyncBailHook<BattleFieldInstance>,
         [props: string]: SyncBailHook<any>

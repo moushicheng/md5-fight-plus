@@ -15,13 +15,13 @@ export const initActionTimes = (player1: PlayerInstanceProperty, player2: Player
     const p1Spd = player1.baseProperty.SPD;
     const p2Spd = player1.baseProperty.SPD;
     const minSpd = Math.min(p1Spd, p2Spd)
-    player1.runtimeProperty.actionTimes = Math.floor(p1Spd / minSpd);
-    player2.runtimeProperty.actionTimes = Math.floor(p2Spd / minSpd);
+    player1.runtimeContext.actionTimes = Math.floor(p1Spd / minSpd);
+    player2.runtimeContext.actionTimes = Math.floor(p2Spd / minSpd);
 }
 
 export const getPlayerSpeed = (player: PlayerInstanceProperty) => {
     return player.runtimeProperty.speed;
 }
 export const getPlayerActionTimes = (player: PlayerInstanceProperty) => {
-    return player.runtimeProperty.actionTimes
+    return player.runtimeContext.actionTimes
 }
