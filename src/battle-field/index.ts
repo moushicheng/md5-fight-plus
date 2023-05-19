@@ -28,7 +28,11 @@ export function initFight(battleField: BattleFieldInstance) {
     battleField.fight = () => {
         battleField.hooks.fightStart.call(battleField)
         battleField.roundCount++;//从第0回合开始计数
-        battleField.round()
+        for (let i = 0; i < 20; i++) {
+            console.log(`------------------第${i}回合开始------------------`);
+            battleField.round()
+        }
+
     }
 }
 export function initHooks(battleField: BattleFieldInstance) {

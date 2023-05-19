@@ -8,10 +8,10 @@ type SyncBailHookOptions<T> = {
     intercept?: (params?: T) => any
 }
 type LastCallback = (params: any) => any
-
+export let ids = -1
 export class SyncBailHook<T>{
     bailedResult: any
-    cbs: { options: TapOptions, func: (params: T) => any }[]
+    cbs: { options: TapOptions, func: (params: T) => any, id: number }[]
     options: SyncBailHookOptions<T>
     error: any
     lastCallback: LastCallback
@@ -27,8 +27,10 @@ export class SyncBailHook<T>{
         this.cbs.push({
             options: optionsFormatted,
             func: callback,
+            id: ids++
         })
         this.cbs.sort((cb1, cb2) => cb1.options.stage - cb2.options.stage)
+        return ids - 1
     }
     call(params?: T) {
         this.bailedResult = params
@@ -57,6 +59,15 @@ export class SyncBailHook<T>{
     }
     registerIntercept(cb) {
         this.options.intercept = cb;
+    }
+    removeTap(id) {
+        for (let i = 0; i < this.cbs.length; i++) {
+            const cb = this.cbs[i]
+            if (cb.id === id) {
+                return this.cbs.splice(i, 1)
+            }
+        }
+        return false
     }
 }
 function formatTapOptions(options: string | TapOptions) {

@@ -9,6 +9,8 @@ export function registerRoundHooks(battleField: BattleFieldInstance) {
     initRoundStart(battleField)
     initPrepare(battleField.players.left)
     initPrepare(battleField.players.right)
+    initOnUnderAttack(battleField.players.left)
+    initOnUnderAttack(battleField.players.right)
     initRoundEnd(battleField)
 }
 function initRoundStart(battleField: BattleFieldInstance) {
@@ -71,10 +73,17 @@ function initRoundEnd(battleField: BattleFieldInstance) {
 }
 
 function initPrepare(player: PlayerInstanceProperty) {
-    player.hooks.prepare.tap('init skill', (battleField) => {
+    player.hooks.prepare.tap('prepare skill', (battleField) => {
         const skillIndex = player.runtimeContext.actionTimes % player.runtimeContext.skills.length;
         const currentSkill = player.runtimeContext.skills[skillIndex];
         currentSkill(player)
         return battleField
+    })
+}
+function initOnUnderAttack(player: PlayerInstanceProperty) {
+    player.hooks.onUnderAttack.tap('calculate damage', ({ battleField, damage }) => {
+        player.runtimeProperty.hp -= damage;
+        console.log(`@ ${player.name}【hp】: 受到${damage}点伤害！`);
+        return { battleField, damage }
     })
 }
