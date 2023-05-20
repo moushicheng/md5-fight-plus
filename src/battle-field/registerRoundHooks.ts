@@ -14,11 +14,6 @@ export function registerRoundHooks(battleField: BattleFieldInstance) {
     initRoundEnd(battleField)
 }
 function initRoundStart(battleField: BattleFieldInstance) {
-    battleField.roundHooks.roundStart.registerIntercept((battleField) => {
-        const isDeath = checkPlayerDeath(battleField)
-        if (isDeath) throw isDeath;
-        return battleField
-    })
     battleField.roundHooks.roundStart.tap('Order', (battleField) => {
         const { player1, player2 } = getPlayers(battleField)
         const spd1 = getPlayerSpeed(player1)
