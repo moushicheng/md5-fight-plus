@@ -14,6 +14,7 @@ export class SyncBailHook<T>{
     cbs: { options: TapOptions, func: (params: T) => any, id: number }[]
     options: SyncBailHookOptions<T>
     error: any
+    interceptHook: SyncBailHook<T>
     lastCallback: LastCallback
     constructor(options: SyncBailHookOptions<T> = {}) {
         this.bailedResult = undefined
@@ -21,6 +22,9 @@ export class SyncBailHook<T>{
         this.options = options
         this.error = undefined
         this.lastCallback = (params) => params
+        if (this.options.intercept) {
+            this.registerIntercept(this.options.intercept)
+        }
     }
     tap(options: string | TapOptions, callback: (params: T) => T | BailEvent) {
         const optionsFormatted = formatTapOptions(options)
@@ -41,8 +45,8 @@ export class SyncBailHook<T>{
                 if (this.bailedResult instanceof BailEvent) break;
 
                 //拦截器
-                if (this.options.intercept) {
-                    this.bailedResult = this.options.intercept?.(this.bailedResult)
+                if (this.interceptHook) {
+                    this.bailedResult = this.interceptHook.call(this.bailedResult)
                     //如果返回值是BailEvent,则会直接熔断。
                     if (this.bailedResult instanceof BailEvent) break;
                 }
@@ -58,7 +62,10 @@ export class SyncBailHook<T>{
         this.lastCallback = cb;
     }
     registerIntercept(cb) {
-        this.options.intercept = cb;
+        if (!this.interceptHook) {
+            this.interceptHook = new SyncBailHook<T | undefined>()
+        }
+        this.interceptHook.tap('register interceptFn', (params) => cb(params))
     }
     removeTap(id) {
         for (let i = 0; i < this.cbs.length; i++) {
