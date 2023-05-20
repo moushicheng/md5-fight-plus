@@ -4,6 +4,8 @@ import { PlayerInstanceProperty } from "@/types/player";
 import { registerRoundHooks } from "./registerRoundHooks";
 import { registerHooks } from "./registerHooks";
 import { initRound } from "./initRound";
+import { BailEvent } from "@/events/BailEvent";
+import { RoundTimeOutEvent } from "@/events/roundTimeOut";
 
 export function createBattleField(p1: PlayerInstanceProperty, p2: PlayerInstanceProperty) {
     const battleFieldInstance: BattleFieldInstance = {}
@@ -28,9 +30,14 @@ export function initFight(battleField: BattleFieldInstance) {
     battleField.fight = () => {
         battleField.hooks.fightStart.call(battleField)
         battleField.roundCount++;//从第0回合开始计数
-        for (let i = 0; i < 20; i++) {
-            console.log(`------------------第${i}回合开始------------------`);
-            battleField.round()
+        try {
+            for (let i = 0; i < 100; i++) {
+                console.log(`------------------第${i}回合开始------------------`);
+                battleField.round()
+            }
+            throw new RoundTimeOutEvent()
+        } catch (err) {
+            console.log('游戏结束,原因: ', err);
         }
 
     }
