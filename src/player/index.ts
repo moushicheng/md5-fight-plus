@@ -39,8 +39,6 @@ function getBaseProperty(dataSources: number[]) {
         total += valAdjusted
     }
     adjustPropertyBefore(baseProperty, total)
-
-    console.log(baseProperty);
     return baseProperty
 }
 function adjustPropertyBefore(baseProperty: PlayerBaseProperty, total: number) {

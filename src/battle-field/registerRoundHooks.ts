@@ -60,9 +60,9 @@ function initRoundEnd(battleField: BattleFieldInstance) {
     })
     battleField.roundHooks.roundEnd.tap('log player status', (battleField) => {
         const { player1, player2 } = getPlayers(battleField)
-        console.log(`@ 玩家状态记录`);
-        console.log(`@ ${player1.name}【hp】: ${player1.runtimeProperty.hp}`);
-        console.log(`@ ${player2.name}【hp】: ${player2.runtimeProperty.hp}`);
+        battleField.logger.addInfo(`玩家状态记录: 
+${player1.name}【hp】: ${player1.runtimeProperty.hp}
+${player2.name}【hp】: ${player2.runtimeProperty.hp}`, battleField.roundHooks.roundEnd)
         return battleField
     })
 }
@@ -78,7 +78,7 @@ function initPrepare(player: PlayerInstanceProperty) {
 function initOnUnderAttack(player: PlayerInstanceProperty) {
     player.hooks.onUnderAttack.tap('calculate damage', ({ battleField, damage }) => {
         player.runtimeProperty.hp -= damage;
-        console.log(`@ ${player.name}【hp】: 受到${damage}点伤害！`);
+        battleField.logger.addInfo(`${player.name}【hp】: 受到${damage}点伤害`, player.hooks.onUnderAttack)
         return { battleField, damage }
     })
 }

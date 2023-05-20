@@ -1,5 +1,6 @@
 import { SyncBailHook } from "@/hooks/SyncBailHook"
 import { PlayerInstanceProperty } from "./player"
+import { Logger } from "@/logs"
 
 export type BattleFieldInstance = {
     players?: {
@@ -19,4 +20,5 @@ export type BattleFieldInstance = {
         fightStart: SyncBailHook<BattleFieldInstance>
         [props: string]: SyncBailHook<any>
     }
+    logger?: Logger
 }

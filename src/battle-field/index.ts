@@ -7,6 +7,7 @@ import { initRound } from "./initRound";
 import { BailEvent } from "@/events/BailEvent";
 import { RoundTimeOutEvent } from "@/events/roundTimeOut";
 import { registerIntercept } from "./registerIntercept";
+import { createLogger } from "@/logs";
 
 export function createBattleField(p1: PlayerInstanceProperty, p2: PlayerInstanceProperty) {
     const battleFieldInstance: BattleFieldInstance = {}
@@ -15,6 +16,7 @@ export function createBattleField(p1: PlayerInstanceProperty, p2: PlayerInstance
     initRound(battleFieldInstance)
     initFight(battleFieldInstance)
     initHooks(battleFieldInstance)
+    initLogger(battleFieldInstance)
     //注册一些钩子
     registerHooks(battleFieldInstance)
     registerRoundHooks(battleFieldInstance)
@@ -36,12 +38,13 @@ export function initFight(battleField: BattleFieldInstance) {
         battleField.roundCount++;//从第0回合开始计数
         try {
             for (let i = 0; i < 100; i++) {
-                console.log(`------------------第${i}回合开始------------------`);
+                battleField.logger.addInfo(`------------------第${i}回合开始------------------`)
                 battleField.round()
             }
             throw new RoundTimeOutEvent()
         } catch (err) {
-            console.log('游戏结束,原因: ', err);
+            battleField.logger.addInfo(`游戏结束,原因: ${err}`, 'game over')
+            battleField.logger.addError(`游戏结束,原因: ${err}`, 'game over')
         }
 
     }
@@ -53,4 +56,11 @@ export function initHooks(battleField: BattleFieldInstance) {
         // 计算玩家技能组
         fightStart: new SyncBailHook<BattleFieldInstance>(),
     }
+}
+
+export function initLogger(battleField: BattleFieldInstance) {
+    battleField.logger = createLogger({
+        filePath: 'battleField.log.json',
+        mode: 'JSON'
+    })
 }

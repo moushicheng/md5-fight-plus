@@ -26,7 +26,6 @@ function calRunTime(player: PlayerInstanceProperty) {
     player.runtimeProperty.attack = player.baseProperty.STR
     player.runtimeProperty.mana = player.baseProperty.MANA
     player.runtimeProperty.speed = player.baseProperty.SPD
-    console.log(player.runtimeProperty);
 }
 function fillSkill(player: PlayerInstanceProperty) {
     const skills = player.skills
