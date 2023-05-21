@@ -49,6 +49,9 @@ export type PlayerRuntimeProperty = {
     speed: number //速度
     mana: number //魔力
     stunned: boolean //是否眩晕
+    buff_frostbite: number  //霜蚀
+    buff_firing: number    //灼烧
+    buff_poison: number //中毒
 }
 export type PlayerRuntimeContext = {
     roundCount: number//回合次数
@@ -64,13 +67,37 @@ export type PlayerInstanceProperty = {
     runtimeProperty?: PlayerRuntimeProperty
     runtimeContext?: PlayerRuntimeContext
     hooks?: {
+        /** 
+            初始化属性
+        **/
         initProperty: SyncBailHook<PlayerInstanceProperty>,
+        /** 
+            回合准备阶段
+        **/
         prepare: SyncBailHook<BattleFieldInstance>,
+        /** 
+            作为攻击方的准备攻击阶段
+        **/
         beforeAttack: SyncBailHook<BattleFieldInstance>,
+        /** 
+            作为防守方的准备被攻击阶段
+        **/
         beforeUnderAttack: SyncBailHook<BattleFieldInstance>,
+        /** 
+            作为攻击方的攻击时阶段
+        **/
         onAttack: SyncBailHook<BattleFieldInstance | number>,
+        /** 
+            作为防守方的被攻击时阶段
+        **/
         onUnderAttack: SyncBailHook<{ battleField: BattleFieldInstance, damage: number }>,
+        /** 
+            作为攻击方的攻击后阶段
+        **/
         afterAttack: SyncBailHook<BattleFieldInstance>,
+        /** 
+            作为防守方的被攻击后阶段
+        **/
         afterUnderAttack: SyncBailHook<BattleFieldInstance>,
         [props: string]: SyncBailHook<any>
     }

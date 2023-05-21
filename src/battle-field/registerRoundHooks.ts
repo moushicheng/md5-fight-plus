@@ -75,6 +75,13 @@ function initPrepare(player: PlayerInstanceProperty) {
         return battleField
     })
 }
+function initOnAttack(player: PlayerInstanceProperty) {
+    const roundContext = player.battleField.roundContext
+    player.hooks.onAttack.registerIntercept('calculate buff_frostbite', (props) => {
+
+        return props
+    })
+}
 function initOnUnderAttack(player: PlayerInstanceProperty) {
     player.hooks.onUnderAttack.tap('calculate damage', ({ battleField, damage }) => {
         player.runtimeProperty.hp -= damage;

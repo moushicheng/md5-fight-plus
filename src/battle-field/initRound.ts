@@ -28,5 +28,10 @@ export function initRound(battleField: BattleFieldInstance) {
         roundEnd: new SyncBailHook<BattleFieldInstance>(),
         roundStart: new SyncBailHook<BattleFieldInstance>()
     }
+    //记录本轮回合状态
+    battleField.roundContext = {
+        attackTimes: 0,
+        totalDamage: 0,
+    }
     battleField.roundCount = 0;
 }

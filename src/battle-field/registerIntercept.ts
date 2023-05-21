@@ -12,7 +12,7 @@ function register(player: PlayerInstanceProperty, battleField: BattleFieldInstan
     const hooks = player.hooks
     for (const key in hooks) {
         const hook = hooks[key];
-        hook.registerIntercept((props) => {
+        hook.registerIntercept('check Death', (props) => {
             const isDeath = checkPlayerDeath(battleField)
             if (isDeath) throw isDeath;
             return props

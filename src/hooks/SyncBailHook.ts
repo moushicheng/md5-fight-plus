@@ -23,7 +23,7 @@ export class SyncBailHook<T>{
         this.error = undefined
         this.lastCallback = (params) => params
         if (this.options.intercept) {
-            this.registerIntercept(this.options.intercept)
+            this.registerIntercept('register options intercept', this.options.intercept)
         }
     }
     tap(options: string | TapOptions, callback: (params: T) => T | BailEvent) {
@@ -61,11 +61,11 @@ export class SyncBailHook<T>{
     registerLastCallback(cb: LastCallback) {
         this.lastCallback = cb;
     }
-    registerIntercept(cb) {
+    registerIntercept(info: string = 'register interceptFn', cb) {
         if (!this.interceptHook) {
             this.interceptHook = new SyncBailHook<T | undefined>()
         }
-        this.interceptHook.tap('register interceptFn', (params) => cb(params))
+        this.interceptHook.tap(info, (params) => cb(params))
     }
     removeTap(id) {
         for (let i = 0; i < this.cbs.length; i++) {

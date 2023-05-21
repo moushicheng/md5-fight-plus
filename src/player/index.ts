@@ -95,6 +95,9 @@ export const createPlayer = function (name: string) {
         speed: undefined,
         mana: undefined,
         stunned: false,
+        buff_firing: 0,
+        buff_frostbite: 0,
+        buff_poison: 0
     }
     const runtimeContext: PlayerRuntimeContext = {
         actionTimes: 0,//行动计数
