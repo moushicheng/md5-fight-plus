@@ -43,18 +43,18 @@ function getBaseProperty(dataSources: number[]) {
 }
 function adjustPropertyBefore(baseProperty: PlayerBaseProperty, total: number) {
     //调整生命值
-    let max = -1;
-    let maxKey = ''
-    for (const key in baseProperty) {
-        if (max < baseProperty[key]) {
-            max = baseProperty[key]
-            maxKey = key;
-        }
-    }
-    if (maxKey !== 'CON') {
-        baseProperty[maxKey] = baseProperty['CON']
-        baseProperty['CON'] = max;
-    }
+    // let max = -1;
+    // let maxKey = ''
+    // for (const key in baseProperty) {
+    //     if (max < baseProperty[key]) {
+    //         max = baseProperty[key]
+    //         maxKey = key;
+    //     }
+    // }
+    // if (maxKey !== 'CON') {
+    //     baseProperty[maxKey] = baseProperty['CON']
+    //     baseProperty['CON'] = max;
+    // }
     //x基数
     for (const key in baseProperty) {
         baseProperty[key] = baseProperty[key] * 40 / total
