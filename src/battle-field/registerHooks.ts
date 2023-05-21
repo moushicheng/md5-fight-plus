@@ -22,9 +22,9 @@ export function registerHooks(battleField: BattleFieldInstance) {
     })
 }
 function calRunTime(player: PlayerInstanceProperty) {
-    player.runtimeProperty.hp = player.baseProperty.CON * 10
+    player.runtimeProperty.hp = player.baseProperty.CON * 15
     player.runtimeProperty.attack = player.baseProperty.STR
-    player.runtimeProperty.mana = player.baseProperty.MANA
+    player.runtimeProperty.mana = Math.round(player.baseProperty.MANA * 1.5)
     player.runtimeProperty.speed = player.baseProperty.SPD
 }
 function fillSkill(player: PlayerInstanceProperty) {
