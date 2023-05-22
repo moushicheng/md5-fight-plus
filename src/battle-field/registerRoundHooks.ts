@@ -1,4 +1,3 @@
-import { checkPlayerDeath } from "@/hooks/intercepts/checkPlayer";
 import { getPlayerActionTimes, getPlayerSpeed, initActionTimes } from "@/player/utils";
 import { BattleFieldInstance } from "@/types/battleField";
 import { getPlayers } from "@/utils";
@@ -9,6 +8,7 @@ export function registerRoundHooks(battleField: BattleFieldInstance) {
     initRoundStart(battleField)
     initPrepare(battleField.players.left)
     initPrepare(battleField.players.right)
+    initRounding(battleField)
     initOnUnderAttack(battleField.players.left)
     initOnUnderAttack(battleField.players.right)
     initRoundEnd(battleField)
@@ -60,9 +60,39 @@ function initRoundEnd(battleField: BattleFieldInstance) {
     })
     battleField.roundHooks.roundEnd.tap('log player status', (battleField) => {
         const { player1, player2 } = getPlayers(battleField)
-        battleField.logger.addInfo(`玩家状态记录: 
+        battleField.logger.addDebug(`玩家状态记录: 
 ${player1.name}【hp】: ${player1.runtimeProperty.hp}
 ${player2.name}【hp】: ${player2.runtimeProperty.hp}`, battleField.roundHooks.roundEnd)
+        return battleField
+    })
+}
+export function initRounding(battleField: BattleFieldInstance) {
+    let oneRoundContext = {
+        attackTimes: 0,
+        totalDamage: 0
+    }
+    battleField.roundHooks.rounding.tap({ name: 'initContext', stage: 0 }, (battleField) => {
+        oneRoundContext = {
+            attackTimes: 0,
+            totalDamage: 0
+        }
+        return battleField
+    })
+    battleField.roundHooks.rounding.tap('attack stage', (battleField) => {
+        const { player1: attacker, player2: defender } = getPlayers(battleField)
+        oneRoundContext.attackTimes += attacker.hooks.onAttack.cbs.length;
+        while (oneRoundContext.attackTimes--) {
+            //攻击前
+            attacker.hooks.beforeAttack.call(battleField)
+            defender.hooks.beforeUnderAttack.call(battleField)
+            //攻击时
+            const damage = attacker.hooks.onAttack.call(battleField)    //攻击
+            oneRoundContext.totalDamage += damage
+            defender.hooks.onUnderAttack.call({ battleField, damage }); //承受攻击
+            //攻击后
+            attacker.hooks.afterAttack.call(battleField);
+            defender.hooks.afterUnderAttack.call(battleField)
+        }
         return battleField
     })
 }
@@ -73,13 +103,6 @@ function initPrepare(player: PlayerInstanceProperty) {
         const currentSkill = player.runtimeContext.skills[skillIndex];
         currentSkill(player)
         return battleField
-    })
-}
-function initOnAttack(player: PlayerInstanceProperty) {
-    const roundContext = player.battleField.roundContext
-    player.hooks.onAttack.registerIntercept('calculate buff_frostbite', (props) => {
-
-        return props
     })
 }
 function initOnUnderAttack(player: PlayerInstanceProperty) {

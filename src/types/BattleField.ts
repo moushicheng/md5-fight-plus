@@ -11,16 +11,9 @@ export type BattleFieldInstance = {
     roundCount?: number
     roundHooks?: {
         roundStart: SyncBailHook<BattleFieldInstance>,
+        rounding: SyncBailHook<BattleFieldInstance>
         roundEnd: SyncBailHook<BattleFieldInstance>,
         [props: string]: SyncBailHook<any>
-    }
-    /** 
-        独立记录每轮回合状态
-    **/
-    roundContext?: {
-        attackTimes: number,
-        totalDamage: number,
-        [props: string]: any
     }
     fight?: () => void
     hooks?: {
