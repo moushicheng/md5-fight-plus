@@ -89,4 +89,5 @@ function formatTapOptions(options: string | TapOptions) {
     for (const key in options) {
         rawOptions[key] = options[key]
     }
+    return rawOptions
 }
