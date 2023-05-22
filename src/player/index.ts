@@ -124,12 +124,12 @@ export const createPlayerHook = () => {
     const hooks = {
         initProperty: new SyncBailHook<PlayerInstanceProperty>(),
         prepare: new SyncBailHook<BattleFieldInstance>(),
-        beforeAttack: new SyncBailHook<BattleFieldInstance>(),
-        beforeUnderAttack: new SyncBailHook<BattleFieldInstance>(),
-        onAttack: new SyncBailHook<BattleFieldInstance>(),
-        onUnderAttack: new SyncBailHook<{ battleField: BattleFieldInstance, damage: number }>(),
-        afterAttack: new SyncBailHook<BattleFieldInstance>(),
-        afterUnderAttack: new SyncBailHook<BattleFieldInstance>(),
+        beforeAttack: new SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>(),
+        beforeUnderAttack: new SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>(),
+        onAttack: new SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>(),
+        onUnderAttack: new SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any, damage: number }>(),
+        afterAttack: new SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any, damage: number }>(),
+        afterUnderAttack: new SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>(),
     }
     return hooks
 }

@@ -78,27 +78,27 @@ export type PlayerInstanceProperty = {
         /** 
             作为攻击方的准备攻击阶段
         **/
-        beforeAttack: SyncBailHook<BattleFieldInstance>,
+        beforeAttack: SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>,
         /** 
             作为防守方的准备被攻击阶段
         **/
-        beforeUnderAttack: SyncBailHook<BattleFieldInstance>,
+        beforeUnderAttack: SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>,
         /** 
             作为攻击方的攻击时阶段
         **/
-        onAttack: SyncBailHook<BattleFieldInstance | number>,
+        onAttack: SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any, damage?: number }>,
         /** 
             作为防守方的被攻击时阶段
         **/
-        onUnderAttack: SyncBailHook<{ battleField: BattleFieldInstance, damage: number }>,
+        onUnderAttack: SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any, damage?: number }>,
         /** 
             作为攻击方的攻击后阶段
         **/
-        afterAttack: SyncBailHook<BattleFieldInstance>,
+        afterAttack: SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>,
         /** 
             作为防守方的被攻击后阶段
         **/
-        afterUnderAttack: SyncBailHook<BattleFieldInstance>,
+        afterUnderAttack: SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>,
         [props: string]: SyncBailHook<any>
     }
     battleField: BattleFieldInstance

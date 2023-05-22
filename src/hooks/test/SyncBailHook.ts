@@ -5,16 +5,7 @@ type HooksType = {
     player2: string
 }
 
-const hook = new SyncBailHook<HooksType | number>({
-    intercept: (params) => {
-        if (_.isNumber(params)) {
-            return params;
-        }
-        params.player1 += ' @inter'
-        params.player2 += ' @inter'
-        return params
-    }
-})
+const hook = new SyncBailHook<HooksType | number>()
 
 hook.tap('@func1', (props) => {
     console.log('@f1', props);

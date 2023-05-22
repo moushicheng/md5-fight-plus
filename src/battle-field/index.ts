@@ -6,7 +6,7 @@ import { registerHooks } from "./registerHooks";
 import { initRound } from "./initRound";
 import { BailEvent } from "@/events/BailEvent";
 import { RoundTimeOutEvent } from "@/events/roundTimeOut";
-import { registerIntercept } from "./registerIntercept";
+import { registerAfterActionHook } from "./registerIntercept";
 import { createLogger } from "@/logs";
 
 export function createBattleField(p1: PlayerInstanceProperty, p2: PlayerInstanceProperty) {
@@ -20,7 +20,7 @@ export function createBattleField(p1: PlayerInstanceProperty, p2: PlayerInstance
     //注册一些钩子
     registerHooks(battleFieldInstance)
     registerRoundHooks(battleFieldInstance)
-    registerIntercept(battleFieldInstance)
+    registerAfterActionHook(battleFieldInstance)
     battleFieldInstance.hooks.init.call(battleFieldInstance)
     return battleFieldInstance
 }

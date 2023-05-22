@@ -5,16 +5,19 @@ type TapOptions = {
     stage?: number //优先级，越小优先级越高 范围0~99
 }
 type SyncBailHookOptions<T> = {
-    intercept?: (params?: T) => any
+    beforeAction?: (params?: T) => any
+    afterAction?: (params?: T) => any
 }
 type LastCallback = (params: any) => any
 export let ids = -1
+export let hooksRecord = []
 export class SyncBailHook<T>{
     bailedResult: any
     cbs: { options: TapOptions, func: (params: T) => any, id: number }[]
     options: SyncBailHookOptions<T>
     error: any
-    interceptHook: SyncBailHook<T>
+    afterActionHook: SyncBailHook<T>
+    beforeActionHook: SyncBailHook<T>
     lastCallback: LastCallback
     constructor(options: SyncBailHookOptions<T> = {}) {
         this.bailedResult = undefined
@@ -22,8 +25,11 @@ export class SyncBailHook<T>{
         this.options = options
         this.error = undefined
         this.lastCallback = (params) => params
-        if (this.options.intercept) {
-            this.registerIntercept('register options intercept', this.options.intercept)
+        if (this.options.afterAction) {
+            this.registerAfterActionHook('register options afterAction', this.options.afterAction)
+        }
+        if (this.options.beforeAction) {
+            this.registerBeforeActionHook('register options beforeAction', this.options.beforeAction)
         }
     }
     tap(options: string | TapOptions, callback: (params: T) => T | BailEvent) {
@@ -40,13 +46,20 @@ export class SyncBailHook<T>{
         this.bailedResult = params
         try {
             for (let i = 0; i < this.cbs.length; i++) {
+                if (this.beforeActionHook) {
+                    this.bailedResult = this.beforeActionHook.call(this.bailedResult)
+                    //如果返回值是BailEvent,则会直接熔断。
+                    if (this.bailedResult instanceof BailEvent) break;
+                }
+
                 this.bailedResult = this.cbs[i].func(this.bailedResult)
+                hooksRecord.push(this.cbs[i].options.name)
                 //如果返回值是BailEvent,则会直接熔断。
                 if (this.bailedResult instanceof BailEvent) break;
 
                 //拦截器
-                if (this.interceptHook) {
-                    this.bailedResult = this.interceptHook.call(this.bailedResult)
+                if (this.afterActionHook) {
+                    this.bailedResult = this.afterActionHook.call(this.bailedResult)
                     //如果返回值是BailEvent,则会直接熔断。
                     if (this.bailedResult instanceof BailEvent) break;
                 }
@@ -61,11 +74,17 @@ export class SyncBailHook<T>{
     registerLastCallback(cb: LastCallback) {
         this.lastCallback = cb;
     }
-    registerIntercept(info: string = 'register interceptFn', cb) {
-        if (!this.interceptHook) {
-            this.interceptHook = new SyncBailHook<T | undefined>()
+    registerAfterActionHook(info: string = 'register afterActionFn', cb: (params?: T) => any) {
+        if (!this.afterActionHook) {
+            this.afterActionHook = new SyncBailHook<T | undefined>()
         }
-        this.interceptHook.tap(info, (params) => cb(params))
+        this.afterActionHook.tap(info, (params) => cb(params))
+    }
+    registerBeforeActionHook(info: string = 'register afterActionFn', cb: (params?: T) => any) {
+        if (!this.beforeActionHook) {
+            this.beforeActionHook = new SyncBailHook<T | undefined>()
+        }
+        this.beforeActionHook.tap(info, (params) => cb(params))
     }
     removeTap(id) {
         for (let i = 0; i < this.cbs.length; i++) {
