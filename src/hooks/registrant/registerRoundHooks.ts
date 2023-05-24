@@ -4,7 +4,6 @@ import { getPlayers } from "@/utils";
 import { initOrder } from "../../battle-field/utils";
 import { PlayerInstanceProperty } from "@/types/player";
 import _ from 'lodash'
-import { initBuffFrostbite } from "./registerFrostbiteHook";
 export function registerRoundHooks(battleField: BattleFieldInstance) {
     const { player1: attacker, player2: defender } = getPlayers(battleField)
     initRoundStart(battleField)
@@ -13,7 +12,7 @@ export function registerRoundHooks(battleField: BattleFieldInstance) {
     initOnAttack(attacker, defender, battleField)
     initOnAttack(defender, attacker, battleField)
     initOnUnderAttack(battleField)
-    initBuffFrostbite(battleField)
+
     initRoundEnd(battleField)
 }
 function initRoundStart(battleField: BattleFieldInstance) {

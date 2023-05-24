@@ -99,6 +99,10 @@ export type PlayerInstanceProperty = {
             作为防守方的被攻击后阶段
         **/
         afterUnderAttack: SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>,
+
+        onAdjustMana: SyncBailHook<number>,
+        onAdjustFrostbite: SyncBailHook<number>,
+        onAdjustHp: SyncBailHook<number>,
         [props: string]: SyncBailHook<any>
     }
     battleField: BattleFieldInstance

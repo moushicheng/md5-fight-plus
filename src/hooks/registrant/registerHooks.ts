@@ -3,8 +3,14 @@ import { BattleFieldInstance } from "@/types/battleField";
 import { PlayerInstanceProperty } from "@/types/player";
 import { getPlayers } from "@/utils";
 import skillList from '@/skills/index'
+import { initBuffFrostbite } from "./registerFrostbiteHook";
 
 export function registerHooks(battleField: BattleFieldInstance) {
+    initFightStart(battleField)
+    initBuffFrostbite(battleField)
+    initAdjustRuntime(battleField)
+}
+function initFightStart(battleField: BattleFieldInstance) {
     battleField.hooks.fightStart.tap('init runtimeProperty', (battleField) => {
         //初始化runtime
         const { player1, player2 } = getPlayers(battleField)
@@ -32,5 +38,25 @@ function fillSkill(player: PlayerInstanceProperty) {
     skills.forEach((skillName: string) => {
         const skill = skillList[skillName] || skillList['normalAttack']
         player.runtimeContext.skills.push(skill)
+    })
+}
+
+function initAdjustRuntime(battleField: BattleFieldInstance) {
+    const { player1, player2 } = getPlayers(battleField);
+    [player1, player2].forEach((player: PlayerInstanceProperty) => {
+        player.hooks.onAdjustHp.tap('adjust Hp', (value) => {
+            player.runtimeProperty.hp += value;
+            return value
+        })
+        player.hooks.onAdjustMana.tap('adjust Mana', (value) => {
+            player.runtimeProperty.mana += value;
+            return value
+        })
+        player.hooks.onAdjustFrostbite.tap('adjust Frostbite', (value) => {
+            let nextValue = player.runtimeProperty.buff_frostbite + value;
+            if (nextValue < 0) nextValue = 0
+            player.runtimeProperty.buff_frostbite = nextValue
+            return value
+        })
     })
 }
