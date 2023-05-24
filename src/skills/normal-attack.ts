@@ -1,6 +1,6 @@
 import { PlayerInstanceProperty } from "@/types/player";
 import _ from 'lodash'
-//普攻
+/**普通攻击 */
 export function normalAttack(player: PlayerInstanceProperty) {
     const battleField = player.battleField
     battleField.logger.addDebug('init normalAttack')

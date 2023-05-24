@@ -3,17 +3,6 @@ import { PlayerBaseProperty, PlayerInstanceProperty, PlayerRuntimeContext, Playe
 import { SyncBailHook } from '@/hooks/SyncBailHook';
 import { BattleFieldInstance } from '@/types/battleField';
 
-
-const playerStatusList: PlayerStatus[] = [
-    PlayerStatus.onUnderAttack,
-    PlayerStatus.afterUnderAttack,
-    PlayerStatus.beforeAttack,
-    PlayerStatus.afterAttack,
-    PlayerStatus.beforeUnderAttack,
-    PlayerStatus.ready,
-    PlayerStatus.onAttack,
-];
-
 function calculateProperty(name) {
     const encryptedMd5Hex = md5(name); // Generates Player's ID. 
     const propertyNumber: number[] = [];
@@ -86,7 +75,7 @@ export const createPlayer = function (name: string) {
     //等级设定
     const level = 1;
     //技能组
-    const skills = ['a', 'a', 'a', 'a', 'a'];
+    const skills = ['frostbiteAttack', 'a', 'a', 'a', 'a'];
     //hooks列表
     const hooks = createPlayerHook();
     const runtimeProperty: PlayerRuntimeProperty = {
@@ -130,6 +119,8 @@ export const createPlayerHook = () => {
         onUnderAttack: new SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any, damage: number }>(),
         afterAttack: new SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any, damage: number }>(),
         afterUnderAttack: new SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>(),
+        onAdjustMana: new SyncBailHook<{ battleField: BattleFieldInstance, value: number }>(),
+        onAdjustFrostbite: new SyncBailHook<{ battleField: BattleFieldInstance, value: number }>()
     }
     return hooks
 }

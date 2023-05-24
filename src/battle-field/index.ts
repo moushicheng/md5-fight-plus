@@ -1,10 +1,9 @@
 import { SyncBailHook } from "@/hooks/SyncBailHook";
 import { BattleFieldInstance } from "@/types/battleField";
 import { PlayerInstanceProperty } from "@/types/player";
-import { registerRoundHooks } from "./registerRoundHooks";
-import { registerHooks } from "./registerHooks";
+import { registerRoundHooks } from "../hooks/registrant/registerRoundHooks";
+import { registerHooks } from "../hooks/registrant/registerHooks";
 import { initRound } from "./initRound";
-import { BailEvent } from "@/events/BailEvent";
 import { RoundTimeOutEvent } from "@/events/roundTimeOut";
 import { registerAfterActionHook } from "./registerIntercept";
 import { createLogger } from "@/logs";

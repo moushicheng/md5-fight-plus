@@ -1,5 +1,7 @@
+import { frostbiteAttack } from './frostbite'
 import { normalAttack } from './normal-attack'
 
 export default {
-    a: normalAttack
+    normalAttack: normalAttack,
+    frostbiteAttack: frostbiteAttack
 }

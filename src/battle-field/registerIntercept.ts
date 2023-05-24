@@ -1,7 +1,6 @@
-import { checkPlayerDeath } from "@/hooks/intercepts/checkPlayer";
 import { BattleFieldInstance } from "@/types/battleField";
 import { PlayerInstanceProperty } from "@/types/player";
-import { getPlayers } from "@/utils";
+import { checkPlayerDeath, getPlayers } from "@/utils";
 
 export function registerAfterActionHook(battleField: BattleFieldInstance) {
     const { player1, player2 } = getPlayers(battleField);

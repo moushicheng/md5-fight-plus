@@ -30,7 +30,7 @@ function calRunTime(player: PlayerInstanceProperty) {
 function fillSkill(player: PlayerInstanceProperty) {
     const skills = player.skills
     skills.forEach((skillName: string) => {
-        const skill = skillList[skillName] || skillList['a']
+        const skill = skillList[skillName] || skillList['normalAttack']
         player.runtimeContext.skills.push(skill)
     })
 }

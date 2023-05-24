@@ -1,20 +1,18 @@
 import { getPlayerActionTimes, getPlayerSpeed, initActionTimes } from "@/player/utils";
 import { BattleFieldInstance } from "@/types/battleField";
 import { getPlayers } from "@/utils";
-import { initOrder } from "./utils";
+import { initOrder } from "../../battle-field/utils";
 import { PlayerInstanceProperty } from "@/types/player";
 import _ from 'lodash'
-import { initBuffFrostbite } from "@/models/buff/buff";
+import { initBuffFrostbite } from "./registerFrostbiteHook";
 export function registerRoundHooks(battleField: BattleFieldInstance) {
     const { player1: attacker, player2: defender } = getPlayers(battleField)
     initRoundStart(battleField)
-    initPrepare(attacker)
-    initPrepare(defender)
+    initPrepare(battleField)
     initRounding(battleField)
     initOnAttack(attacker, defender, battleField)
     initOnAttack(defender, attacker, battleField)
-    initOnUnderAttack(attacker)
-    initOnUnderAttack(defender)
+    initOnUnderAttack(battleField)
     initBuffFrostbite(battleField)
     initRoundEnd(battleField)
 }
@@ -72,13 +70,20 @@ ${player2.name}【hp】: ${player2.runtimeProperty.hp}`, battleField.roundHooks.
     })
 }
 
-function initPrepare(player: PlayerInstanceProperty) {
-    player.hooks.prepare.tap('prepare skill', (battleField) => {
-        const skillIndex = player.runtimeContext.actionTimes % player.runtimeContext.skills.length;
-        const currentSkill = player.runtimeContext.skills[skillIndex];
-        currentSkill(player)
-        return battleField
-    })
+function initPrepare(battleField: BattleFieldInstance) {
+    const { player1, player2 } = getPlayers(battleField)
+    run(player1)
+    run(player2)
+    function run(player: PlayerInstanceProperty) {
+        player.hooks.prepare.tap('prepare skill', (battleField) => {
+            const skillIndex = player.runtimeContext.roundCount % player.runtimeContext.skills.length;
+            const currentSkill = player.runtimeContext.skills[skillIndex];
+            currentSkill(player)
+            return battleField
+        })
+    }
+
+
 }
 export function initRounding(battleField: BattleFieldInstance) {
     let oneRoundContext = {
@@ -120,11 +125,17 @@ function initOnAttack(attacker: PlayerInstanceProperty, defender: PlayerInstance
         return props
     })
 }
-function initOnUnderAttack(player: PlayerInstanceProperty) {
-    player.hooks.onUnderAttack.tap('calculate damage', (props) => {
-        const { damage, battleField } = props;
-        player.runtimeProperty.hp -= damage;
-        battleField.logger.addInfo(`${player.name}【hp】: 受到${damage}点伤害`, player.hooks.onUnderAttack)
-        return props
-    })
+function initOnUnderAttack(battleField: BattleFieldInstance) {
+    const { player1, player2 } = getPlayers(battleField)
+    run(player1)
+    run(player2)
+    function run(player: PlayerInstanceProperty) {
+        player.hooks.onUnderAttack.tap('calculate damage', (props) => {
+            const { damage, battleField } = props;
+            player.runtimeProperty.hp -= damage;
+            battleField.logger.addInfo(`${player.name}【hp】: 受到${damage}点伤害`, player.hooks.onUnderAttack)
+            return props
+        })
+    }
+
 }
