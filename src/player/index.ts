@@ -75,7 +75,7 @@ export const createPlayer = function (name: string) {
     //等级设定
     const level = 1;
     //技能组
-    const skills = ['frostbiteAttack', 'a', 'a', 'a', 'a'];
+    const skills = ['a', 'a', 'a', 'a', 'a'];
     //hooks列表
     const hooks = createPlayerHook();
     const runtimeProperty: PlayerRuntimeProperty = {

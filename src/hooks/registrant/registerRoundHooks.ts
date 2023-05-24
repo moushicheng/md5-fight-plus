@@ -131,8 +131,8 @@ function initOnUnderAttack(battleField: BattleFieldInstance) {
     function run(player: PlayerInstanceProperty) {
         player.hooks.onUnderAttack.tap('calculate damage', (props) => {
             const { damage, battleField } = props;
-            player.runtimeProperty.hp -= damage;
-            battleField.logger.addInfo(`${player.name}【hp】: 受到${damage}点伤害`, player.hooks.onUnderAttack)
+            player.hooks.onAdjustHp.call(-damage)
+            battleField.logger.addInfo(`${player.name}: 受到${damage}点伤害,当前剩余【hp】${[player.runtimeProperty.hp]}`, player.hooks.onUnderAttack)
             return props
         })
     }
