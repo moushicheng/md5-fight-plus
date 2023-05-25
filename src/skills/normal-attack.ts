@@ -1,7 +1,7 @@
 import { PlayerInstanceProperty } from "@/types/player";
 import _ from 'lodash'
 /**普通攻击 */
-export function normalAttack(player: PlayerInstanceProperty) {
+export function _normalAttack(player: PlayerInstanceProperty) {
     const battleField = player.battleField
     battleField.logger.addDebug('init normalAttack')
     const id = player.hooks.onAttack.tap('normal Attack', ({ battleField, oneRoundContext }) => {
@@ -13,4 +13,10 @@ export function normalAttack(player: PlayerInstanceProperty) {
         player.hooks.onAttack.removeTap(id)
         return props
     })
+}
+export const normalAttack = {
+    name: '普通攻击',
+    description: '简简单单攻击一下...',
+    mana: 2,
+    run: _normalAttack
 }

@@ -77,7 +77,7 @@ function initPrepare(battleField: BattleFieldInstance) {
         player.hooks.prepare.tap('prepare skill', (battleField) => {
             const skillIndex = player.runtimeContext.roundCount % player.runtimeContext.skills.length;
             const currentSkill = player.runtimeContext.skills[skillIndex];
-            currentSkill(player)
+            currentSkill.run(player)
             return battleField
         })
     }

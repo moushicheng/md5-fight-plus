@@ -25,3 +25,10 @@ export const checkPlayerDeath = (battleField: BattleFieldInstance) => {
         return new PlayerDeathEvent(`玩家【${player2.name}阵亡,游戏结束】`)
     }
 }
+export const canUseSkill = (player: PlayerInstanceProperty, mana: number) => {
+    if (player.runtimeProperty.mana < mana) {
+        //说明mp不够了
+        return false;
+    }
+    return true;
+}
