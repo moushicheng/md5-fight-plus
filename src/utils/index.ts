@@ -1,6 +1,8 @@
 import { PlayerDeathEvent } from "@/events/playerDeath";
+import { Skill } from "@/types/skill";
 import { BattleFieldInstance } from "@/types/battleField";
 import { PlayerInstanceProperty } from "@/types/player";
+import { decreaseMana } from "@/skills/utils";
 
 export const getPlayers = (battleField: BattleFieldInstance) => {
     return {
@@ -31,4 +33,17 @@ export const canUseSkill = (player: PlayerInstanceProperty, mana: number) => {
         return false;
     }
     return true;
+}
+
+export const preprocessSkill = (skill: Skill) => {
+    const raw_run = skill.run
+    return function cb(player: PlayerInstanceProperty) {
+        //查看蓝耗
+        if (!canUseSkill(player, skill.mana)) {
+            player.battleField.logger.addInfo(`${player.name}累趴了，摸鱼一回合（`)
+            return;
+        }
+        decreaseMana(player, skill.mana)
+        raw_run(player)
+    }
 }

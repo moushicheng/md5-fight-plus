@@ -1,3 +1,4 @@
+import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
 import _ from 'lodash'
 /**普通攻击 */
@@ -14,7 +15,7 @@ export function _normalAttack(player: PlayerInstanceProperty) {
         return props
     })
 }
-export const normalAttack = {
+export const normalAttack: Skill = {
     name: '普通攻击',
     description: '简简单单攻击一下...',
     mana: 2,
