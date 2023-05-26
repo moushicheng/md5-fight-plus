@@ -45,15 +45,7 @@ export const preprocessSkill = (skill: Skill) => {
         }
         raw_run(player)
         decreaseMana(player, skill.mana)
-        decreaseRuntimeProperty(player, skill)
     }
 }
 
-export const decreaseRuntimeProperty = (player: PlayerInstanceProperty, skill: Skill) => {
-    const properties = skill.onAdjustRunTimeProperty;
-    Object.entries(properties).forEach(([property, value]) => {
-        const hook = 'onAdjust' + toUpperFirstCase(property)
-        console.log(hook);
-    })
-}
 export const toUpperFirstCase = (name: string) => name.charAt(0).toUpperCase() + name.slice(1)

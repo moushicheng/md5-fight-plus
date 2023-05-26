@@ -1,7 +1,6 @@
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
 import { getPlayers } from "@/utils";
-import { decreaseMana } from "./utils";
 
 export function _snowball(player: PlayerInstanceProperty) {
     const battleField = player.battleField
@@ -20,9 +19,5 @@ export const snowball: Skill = {
     name: '丢雪球',
     description: '简简单单丢个雪球',
     mana: 2,
-    onAdjustRunTimeProperty: {
-        mana: 2,
-        frostbite: 5,
-    },
     run: _snowball
 }

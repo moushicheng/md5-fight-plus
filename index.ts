@@ -12,4 +12,4 @@ console.log('@创建角色成功', p2.name, p2.baseProperty);
 const battleField = createBattleField(p1, p2)
 battleField.fight()
 
-// console.log(battleField.logger.getByLevel(Level.info).map(item => item.message).join('\n'));
+console.log(battleField.logger.getByLevel(Level.info).map(item => item.message).join('\n'));
