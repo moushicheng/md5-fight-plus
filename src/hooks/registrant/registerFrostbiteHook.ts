@@ -21,7 +21,7 @@ export function initBuffFrostbite(battleField: BattleFieldInstance) {
             if (buff_frostbite > 0) {
                 attacker.hooks.onAdjustFrostbite.call(-buff_frostbite)
                 attacker.runtimeProperty.hp -= buff_frostbite
-                battleField.logger.addInfo(`${attacker.name}受到${buff_frostbite}点寒霜伤害,当前寒霜层数${attacker.runtimeProperty.buff_frostbite}`)
+                battleField.logger.addInfo(`${attacker.name}受到${buff_frostbite}点霜蚀伤害,当前寒霜蚀层数${attacker.runtimeProperty.buff_frostbite}`)
             }
             return props
         })
