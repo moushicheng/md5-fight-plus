@@ -20,5 +20,9 @@ export const snowball: Skill = {
     name: '丢雪球',
     description: '简简单单丢个雪球',
     mana: 2,
+    onAdjustRunTimeProperty: {
+        mana: 2,
+        frostbite: 5,
+    },
     run: _snowball
 }

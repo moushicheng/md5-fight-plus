@@ -17,7 +17,10 @@ export function _normalAttack(player: PlayerInstanceProperty) {
 }
 export const normalAttack: Skill = {
     name: '普通攻击',
+    mana: 2,
     description: '简简单单攻击一下...',
-    mana: 1,
+    onAdjustRunTimeProperty: {
+        mana: 2,
+    },
     run: _normalAttack
 }

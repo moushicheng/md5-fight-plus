@@ -43,7 +43,17 @@ export const preprocessSkill = (skill: Skill) => {
             player.battleField.logger.addInfo(`${player.name}累趴了，摸鱼一回合（`)
             return;
         }
-        decreaseMana(player, skill.mana)
         raw_run(player)
+        decreaseMana(player, skill.mana)
+        decreaseRuntimeProperty(player, skill)
     }
 }
+
+export const decreaseRuntimeProperty = (player: PlayerInstanceProperty, skill: Skill) => {
+    const properties = skill.onAdjustRunTimeProperty;
+    Object.entries(properties).forEach(([property, value]) => {
+        const hook = 'onAdjust' + toUpperFirstCase(property)
+        console.log(hook);
+    })
+}
+export const toUpperFirstCase = (name: string) => name.charAt(0).toUpperCase() + name.slice(1)

@@ -49,9 +49,9 @@ export type PlayerRuntimeProperty = {
     speed: number //速度
     mana: number //魔力
     stunned: boolean //是否眩晕
-    buff_frostbite: number  //霜蚀
-    buff_firing: number    //灼烧
-    buff_poison: number //中毒
+    frostbite: number  //霜蚀
+    firing: number    //灼烧
+    poison: number //中毒
 }
 export type PlayerRuntimeContext = {
     roundCount: number//回合次数
