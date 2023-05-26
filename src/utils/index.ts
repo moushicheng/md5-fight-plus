@@ -3,6 +3,7 @@ import { Skill } from "@/types/skill";
 import { BattleFieldInstance } from "@/types/battleField";
 import { PlayerInstanceProperty } from "@/types/player";
 import { decreaseMana } from "@/skills/utils";
+import _ from 'lodash'
 
 export const getPlayers = (battleField: BattleFieldInstance) => {
     return {
@@ -49,3 +50,10 @@ export const preprocessSkill = (skill: Skill) => {
 }
 
 export const toUpperFirstCase = (name: string) => name.charAt(0).toUpperCase() + name.slice(1)
+
+
+export const getRandomItem = (item: any[]) => {
+    const max = item.length; -1
+    const index = _.random(0, max);
+    return item[index]
+}
