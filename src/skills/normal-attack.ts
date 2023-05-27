@@ -1,7 +1,7 @@
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
 import _ from 'lodash'
-import { getRandomItem } from "@/utils";
+import { getRandomItem, removeHook } from "@/utils";
 /**普通攻击 */
 const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
     const info = [
@@ -19,10 +19,7 @@ export function _normalAttack(player: PlayerInstanceProperty) {
         player.battleField.logger.addInfo(getAttackInfo(player, atk), player.hooks.onAttack)
         return { battleField, oneRoundContext, damage: Math.round(atk * 0.7) }
     })
-    battleField.roundHooks.roundStart.tap('remove normalAttack', (props) => {
-        player.hooks.onAttack.removeTap(id)
-        return props
-    })
+    removeHook(player, id, 'onAttack')
 }
 export const normalAttack: Skill = {
     name: '普通攻击',

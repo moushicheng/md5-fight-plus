@@ -53,7 +53,24 @@ export const toUpperFirstCase = (name: string) => name.charAt(0).toUpperCase() +
 
 
 export const getRandomItem = (item: any[]) => {
-    const max = item.length; -1
+    const max = item.length - 1
     const index = _.random(0, max);
     return item[index]
+}
+
+export const releaseFrostbite = (player: PlayerInstanceProperty, frostbite: number) => {
+
+    const id = player.hooks.beforeAttack.tap('release Frostbite', (props) => {
+        const battleField = props.battleField
+
+        return props
+    })
+    removeHook(player, id, 'beforeAttack')
+}
+export const removeHook = (player: PlayerInstanceProperty, id, inHooks) => {
+    const battleField = player.battleField
+    battleField.roundHooks.roundStart.tap('remove frostbiteAttack', (props) => {
+        player.hooks[inHooks].removeTap(id)
+        return props
+    })
 }
