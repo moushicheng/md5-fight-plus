@@ -1,6 +1,6 @@
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
-import { getPlayers, getRandomItem, removeHook } from "@/utils";
+import { getPlayers, getRandomItem, releaseFrostbite, removeHook } from "@/utils";
 
 const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
     const info = [
@@ -12,8 +12,7 @@ const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
 export function _snowball(player: PlayerInstanceProperty) {
     const battleField = player.battleField
     const id = player.hooks.onAttack.tap('init frostbiteAttack', (props) => {
-        const { player2: defender } = getPlayers(battleField);
-        defender.hooks.onAdjustFrostbite.call(5);
+        releaseFrostbite(player, 5);
         player.battleField.logger.addInfo(getAttackInfo(player, 5), player.hooks.onAttack);
         return { ...props, damage: 5 }
     })

@@ -62,7 +62,8 @@ export const releaseFrostbite = (player: PlayerInstanceProperty, frostbite: numb
 
     const id = player.hooks.beforeAttack.tap('release Frostbite', (props) => {
         const battleField = props.battleField
-
+        const { player2: defender } = getPlayers(battleField);
+        defender.hooks.onAdjustFrostbite.call(frostbite);
         return props
     })
     removeHook(player, id, 'beforeAttack')
