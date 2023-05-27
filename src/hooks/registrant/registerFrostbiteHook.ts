@@ -9,8 +9,8 @@ export function initBuffFrostbite(battleField: BattleFieldInstance) {
     function run(player: PlayerInstanceProperty) {
         player.hooks.onUnderAttack.tap('increase buff_frostbite onUnderAttack', (props) => {
             const { damage } = props;
-            const buff_frostbite = player.runtimeProperty.frostbite
-            if (buff_frostbite > 0 && damage > 0) {
+            const frostbite = player.runtimeProperty.frostbite
+            if (frostbite > 0 && damage > 0) {
                 player.hooks.onAdjustFrostbite.call(1)
             }
             return props

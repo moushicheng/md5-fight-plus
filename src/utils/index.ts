@@ -59,18 +59,17 @@ export const getRandomItem = (item: any[]) => {
 }
 
 export const releaseFrostbite = (player: PlayerInstanceProperty, frostbite: number) => {
-
-    const id = player.hooks.beforeAttack.tap('release Frostbite', (props) => {
+    const id = player.hooks.afterAttack.tap('release Frostbite', (props) => {
         const battleField = props.battleField
         const { player2: defender } = getPlayers(battleField);
         defender.hooks.onAdjustFrostbite.call(frostbite);
+        removeHook(player, id, 'afterAttack')
         return props
     })
-    removeHook(player, id, 'beforeAttack')
 }
-export const removeHook = (player: PlayerInstanceProperty, id, inHooks) => {
+export const removeHook = (player: PlayerInstanceProperty, id: number, inHooks: string) => {
     const battleField = player.battleField
-    battleField.roundHooks.roundStart.tap('remove frostbiteAttack', (props) => {
+    battleField.roundHooks.roundEnd.tap('remove frostbiteAttack', (props) => {
         player.hooks[inHooks].removeTap(id)
         return props
     })
