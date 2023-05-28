@@ -74,3 +74,9 @@ export const removeHook = (player: PlayerInstanceProperty, id: number, inHooks: 
         return props
     })
 }
+export const getOpponent = (player: PlayerInstanceProperty) => {
+    const battleField = player.battleField;
+    if (battleField.players.left === player) return battleField.players.right;
+    if (battleField.players.right === player) return battleField.players.left;
+    return undefined
+}
