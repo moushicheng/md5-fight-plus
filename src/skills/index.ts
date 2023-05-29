@@ -1,9 +1,9 @@
 
 import { preprocessSkill } from '@/utils'
-import { snowball } from './snowball'
+import { snowball } from './ice/snowball'
 import { normalAttack } from './normal-attack'
-import { blizzard } from './blizzard'
-import { absoluteZero } from './absoluteZero'
+import { blizzard } from './ice/blizzard'
+import { absoluteZero } from './ice/absoluteZero'
 
 const raw_skills = {
     normalAttack,

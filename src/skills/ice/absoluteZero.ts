@@ -20,7 +20,7 @@ export function _absoluteZero(player: PlayerInstanceProperty) {
 }
 export const absoluteZero: Skill = {
     name: '绝对零度',
-    description: '连空气都能冻结的绝招，杀伤力极强',
+    description: '【霜蚀】50',
     mana: 8,
     run: _absoluteZero
 }

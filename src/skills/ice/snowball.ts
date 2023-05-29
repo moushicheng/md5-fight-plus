@@ -20,7 +20,7 @@ export function _snowball(player: PlayerInstanceProperty) {
 }
 export const snowball: Skill = {
     name: '丢雪球',
-    description: '简简单单丢个雪球',
+    description: '造成2点伤害，【霜蚀】8',
     mana: 2,
     run: _snowball
 }

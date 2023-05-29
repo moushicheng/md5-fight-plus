@@ -21,7 +21,7 @@ export function _blizzard(player: PlayerInstanceProperty) {
 }
 export const blizzard: Skill = {
     name: '暴风雪',
-    description: '暴雪已死',
+    description: '造成【霜蚀】层数X3的伤害 ,并将目标的【霜蚀】层数清零',
     mana: 5,
     run: _blizzard
 }
