@@ -1,6 +1,6 @@
 
 import { preprocessSkill } from '@/utils'
-import { snowball } from './frostbite'
+import { snowball } from './snowball'
 import { normalAttack } from './normal-attack'
 import { blizzard } from './blizzard'
 import { absoluteZero } from './absoluteZero'
