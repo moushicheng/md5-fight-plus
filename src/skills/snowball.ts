@@ -11,9 +11,10 @@ const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
 
 export function _snowball(player: PlayerInstanceProperty) {
     const id = player.hooks.onAttack.tap('init frostbiteAttack', (props) => {
-        releaseFrostbite(player, 5);
-        player.battleField.logger.addInfo(getAttackInfo(player, 5), player.hooks.onAttack);
-        return { ...props, damage: 5 }
+        const atk = 2
+        releaseFrostbite(player, 8);
+        player.battleField.logger.addInfo(getAttackInfo(player, atk), player.hooks.onAttack);
+        return { ...props, damage: atk }
     })
     removeHook(player, id, 'onAttack')
 }

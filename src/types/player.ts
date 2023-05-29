@@ -100,9 +100,13 @@ export type PlayerInstanceProperty = {
         **/
         afterUnderAttack: SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>,
 
+        /** 
+            调整运行时属性
+        **/
         onAdjustMana: SyncBailHook<number>,
         onAdjustFrostbite: SyncBailHook<number>,
         onAdjustHp: SyncBailHook<number>,
+        onAdjustFiring: SyncBailHook<number>,
         [props: string]: SyncBailHook<any>
     }
     battleField: BattleFieldInstance

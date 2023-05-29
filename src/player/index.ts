@@ -121,7 +121,8 @@ export const createPlayerHook = () => {
         afterUnderAttack: new SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>(),
         onAdjustHp: new SyncBailHook<number>(),
         onAdjustMana: new SyncBailHook<number>(),
-        onAdjustFrostbite: new SyncBailHook<number>()
+        onAdjustFrostbite: new SyncBailHook<number>(),
+        onAdjustFiring: new SyncBailHook<number>()
     }
     return hooks
 }

@@ -58,5 +58,11 @@ function initAdjustRuntime(battleField: BattleFieldInstance) {
             player.runtimeProperty.frostbite = nextValue
             return value
         })
+        player.hooks.onAdjustFiring.tap('adjust Firing', (value) => {
+            let nextValue = player.runtimeProperty.firing + value;
+            if (nextValue < 0) nextValue = 0
+            player.runtimeProperty.firing = nextValue
+            return value
+        })
     })
 }
