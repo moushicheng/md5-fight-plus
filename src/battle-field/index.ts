@@ -7,6 +7,7 @@ import { initRound } from "./initRound";
 import { RoundTimeOutEvent } from "@/events/roundTimeOut";
 import { registerAfterActionHook } from "./registerIntercept";
 import { createLogger } from "@/logs";
+import { getPlayerState, getPlayers } from "@/utils";
 
 export function createBattleField(p1: PlayerInstanceProperty, p2: PlayerInstanceProperty) {
     const battleFieldInstance: BattleFieldInstance = {}
@@ -37,7 +38,7 @@ export function initFight(battleField: BattleFieldInstance) {
         battleField.roundCount++;//从第0回合开始计数
         try {
             for (let i = 0; i < 100; i++) {
-                battleField.logger.addInfo(`------------------第${i}回合开始------------------`)
+                battleField.logger.addInfo(`------------------第${i}回合------------------`)
                 battleField.round()
             }
             throw new RoundTimeOutEvent()

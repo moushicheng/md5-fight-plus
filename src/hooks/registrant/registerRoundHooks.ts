@@ -1,6 +1,6 @@
 import { getPlayerActionTimes, getPlayerSpeed, initActionTimes } from "@/player/utils";
 import { BattleFieldInstance } from "@/types/battleField";
-import { getPlayers, initFnToPlayers } from "@/utils";
+import { getPlayerState, getPlayers, initFnToPlayers } from "@/utils";
 import { initOrder } from "../../battle-field/utils";
 import { PlayerInstanceProperty } from "@/types/player";
 import _ from 'lodash'
@@ -61,9 +61,8 @@ function initRoundEnd(battleField: BattleFieldInstance) {
     })
     battleField.roundHooks.roundEnd.tap({ name: 'log player status', stage: 100 }, (battleField) => {
         const { player1, player2 } = getPlayers(battleField)
-        battleField.logger.addDebug(`玩家状态记录: 
-${player1.name}【hp】: ${player1.runtimeProperty.hp}
-${player2.name}【hp】: ${player2.runtimeProperty.hp}`, battleField.roundHooks.roundEnd)
+        battleField.logger.addDebug(`${getPlayerState(player1)}`)
+        battleField.logger.addDebug(`${getPlayerState(player2)}`)
         return battleField
     })
     battleField.roundHooks.roundEnd.tap('recover mana', (battleField) => {

@@ -73,5 +73,10 @@ function initAdjustRuntime(battleField: BattleFieldInstance) {
             player.runtimeProperty.armor = nextValue
             return nextValue
         })
+        player.hooks.onAdjustSpeed.tap('adjust Speed', (value) => {
+            player.runtimeProperty.speed += value
+            if (player.runtimeProperty.speed <= 0) player.runtimeProperty.speed = 1;
+            return value
+        })
     })
 }

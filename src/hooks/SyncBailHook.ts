@@ -2,6 +2,7 @@ import { BailEvent } from '@/events/BailEvent'
 import _ from 'lodash'
 type TapOptions = {
     name?: string,
+    lives?: number, //生命次数，若<=0，则会自动移除tap,若lives不存在则视为无限执行次数的tap
     stage?: number //优先级，越小优先级越高 范围0~99
 }
 type SyncBailHookOptions<T> = {
@@ -46,13 +47,20 @@ export class SyncBailHook<T>{
         this.bailedResult = params
         try {
             for (let i = 0; i < this.cbs.length; i++) {
+                const currentTap = this.cbs[i];
                 if (this.beforeActionHook) {
                     this.bailedResult = this.beforeActionHook.call(this.bailedResult)
                     //如果返回值是BailEvent,则会直接熔断。
                     if (this.bailedResult instanceof BailEvent) break;
                 }
 
-                this.bailedResult = this.cbs[i].func(this.bailedResult)
+                this.bailedResult = currentTap.func(this.bailedResult)
+
+                if (_.isNumber(currentTap.options.lives) && --currentTap.options.lives <= 0) {
+                    //减少生命计数,若计数值<0则移除taps
+                    this.removeTap(currentTap.id)
+                    i--;
+                }
                 hooksRecord.push(this.cbs[i].options.name)
                 //如果返回值是BailEvent,则会直接熔断。
                 if (this.bailedResult instanceof BailEvent) break;

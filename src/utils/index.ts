@@ -2,7 +2,6 @@ import { PlayerDeathEvent } from "@/events/playerDeath";
 import { Skill } from "@/types/skill";
 import { BattleFieldInstance } from "@/types/battleField";
 import { PlayerInstanceProperty } from "@/types/player";
-import { decreaseMana } from "@/skills/utils";
 import _ from 'lodash'
 
 export const getPlayers = (battleField: BattleFieldInstance) => {
@@ -45,7 +44,7 @@ export const preprocessSkill = (skill: Skill) => {
             return;
         }
         raw_run(player)
-        decreaseMana(player, skill.mana)
+        player.hooks.onAdjustMana.call(-skill.mana)
     }
 }
 
@@ -79,4 +78,13 @@ export const getOpponent = (player: PlayerInstanceProperty) => {
     if (battleField.players.left === player) return battleField.players.right;
     if (battleField.players.right === player) return battleField.players.left;
     return undefined
+}
+export const getPlayerState = (player: PlayerInstanceProperty) => {
+    const runtimeProperty = player.runtimeProperty
+    let result = `${player.name}【状态记录】
+`
+    for (const [key, value] of Object.entries(runtimeProperty)) {
+        result += `${key}:${value} `
+    }
+    return result
 }

@@ -108,6 +108,7 @@ export type PlayerInstanceProperty = {
         onAdjustHp: SyncBailHook<number>,
         onAdjustFiring: SyncBailHook<number>,
         onAdjustArmor: SyncBailHook<number>,
+        onAdjustSpeed: SyncBailHook<number>,
         [props: string]: SyncBailHook<any>
     }
     battleField: BattleFieldInstance

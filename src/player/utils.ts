@@ -12,8 +12,8 @@ export const findMinProperty = (baseProperty: PlayerBaseProperty) => {
     return minKey
 }
 export const initActionTimes = (player1: PlayerInstanceProperty, player2: PlayerInstanceProperty) => {
-    const p1Spd = player1.baseProperty.SPD;
-    const p2Spd = player2.baseProperty.SPD;
+    const p1Spd = player1.runtimeProperty.speed;
+    const p2Spd = player2.runtimeProperty.speed;
     const minSpd = Math.min(p1Spd, p2Spd)
     player1.runtimeContext.actionTimes = Math.floor(p1Spd / minSpd);
     player2.runtimeContext.actionTimes = Math.floor(p2Spd / minSpd);
