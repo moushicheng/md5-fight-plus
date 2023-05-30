@@ -137,8 +137,28 @@ function initOnUnderAttack(battleField: BattleFieldInstance) {
     run(player1)
     run(player2)
     function run(player: PlayerInstanceProperty) {
+        player.hooks.onUnderAttack.tap('calculate armor', (props) => {
+            const { damage } = props;
+            const armor = player.runtimeProperty.armor;//damage=3,armor=5
+            if (armor <= 0 || damage <= 0) return props;
+            if (!armor || !damage) return props
+            if (armor < damage) {
+                //伤害更多
+                player.hooks.onAdjustArmor.call(-armor)
+                props.damage = damage - armor;
+                player.battleField.logger.addInfo(`${player.name}抵挡${armor}点伤害，护甲剩余0`)
+            } else {
+                //护甲更多
+                player.hooks.onAdjustArmor.call(-damage)
+                props.damage = 0;
+                player.battleField.logger.addInfo(`${player.name}抵挡${damage}点伤害,护甲剩余${armor - damage}`)
+            }
+
+            return props
+        })
         player.hooks.onUnderAttack.tap('calculate damage', (props) => {
             const { damage, battleField } = props;
+            if (!damage) return props
             player.hooks.onAdjustHp.call(-damage)
             battleField.logger.addInfo(`${player.name}: 受到${damage}点伤害,当前剩余【hp】${[player.runtimeProperty.hp]}`, player.hooks.onUnderAttack)
             return props

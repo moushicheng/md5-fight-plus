@@ -86,7 +86,8 @@ export const createPlayer = function (name: string) {
         stunned: false,
         firing: 0,
         frostbite: 0,
-        poison: 0
+        poison: 0,
+        armor: 0
     }
     const runtimeContext: PlayerRuntimeContext = {
         actionTimes: 0,//行动计数
@@ -122,7 +123,8 @@ export const createPlayerHook = () => {
         onAdjustHp: new SyncBailHook<number>(),
         onAdjustMana: new SyncBailHook<number>(),
         onAdjustFrostbite: new SyncBailHook<number>(),
-        onAdjustFiring: new SyncBailHook<number>()
+        onAdjustFiring: new SyncBailHook<number>(),
+        onAdjustArmor: new SyncBailHook<number>(),
     }
     return hooks
 }

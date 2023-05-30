@@ -52,6 +52,7 @@ export type PlayerRuntimeProperty = {
     frostbite: number  //霜蚀
     firing: number    //灼烧
     poison: number //中毒
+    armor: number //护甲
 }
 export type PlayerRuntimeContext = {
     roundCount: number//回合次数
@@ -99,7 +100,6 @@ export type PlayerInstanceProperty = {
             作为防守方的被攻击后阶段
         **/
         afterUnderAttack: SyncBailHook<{ battleField: BattleFieldInstance, oneRoundContext: any }>,
-
         /** 
             调整运行时属性
         **/
@@ -107,6 +107,7 @@ export type PlayerInstanceProperty = {
         onAdjustFrostbite: SyncBailHook<number>,
         onAdjustHp: SyncBailHook<number>,
         onAdjustFiring: SyncBailHook<number>,
+        onAdjustArmor: SyncBailHook<number>,
         [props: string]: SyncBailHook<any>
     }
     battleField: BattleFieldInstance

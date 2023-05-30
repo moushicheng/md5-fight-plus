@@ -15,9 +15,9 @@ export function _normalAttack(player: PlayerInstanceProperty) {
     const battleField = player.battleField
     battleField.logger.addDebug('init normalAttack')
     const id = player.hooks.onAttack.tap('normal Attack', ({ battleField, oneRoundContext }) => {
-        const atk = player.runtimeProperty.attack;
+        const atk = Math.round(player.runtimeProperty.attack * 0.7)
         player.battleField.logger.addInfo(getAttackInfo(player, atk), player.hooks.onAttack)
-        return { battleField, oneRoundContext, damage: Math.round(atk * 0.7) }
+        return { battleField, oneRoundContext, damage: atk }
     })
     removeHook(player, id, 'onAttack')
 }
