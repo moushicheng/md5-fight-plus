@@ -1,6 +1,6 @@
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
-import { getOpponent, getRandomItem, releaseFrostbite, removeHook } from "@/utils";
+import { getOpponent, getRandomItem, releaseFrostbite, removeHookInRoundEnd } from "@/utils";
 
 const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
     const info = [
@@ -17,7 +17,7 @@ export function _blizzard(player: PlayerInstanceProperty) {
         player.battleField.logger.addInfo(getAttackInfo(player, atk), player.hooks.onAttack);
         return { ...props, damage: atk }
     })
-    removeHook(player, id, 'onAttack')
+    removeHookInRoundEnd(player, id, 'onAttack')
 }
 export const blizzard: Skill = {
     name: '暴风雪',

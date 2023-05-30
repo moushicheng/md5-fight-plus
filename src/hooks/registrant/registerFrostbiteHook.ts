@@ -11,7 +11,7 @@ export function initBuffFrostbite(battleField: BattleFieldInstance) {
             const { damage } = props;
             const frostbite = player.runtimeProperty.frostbite
             if (frostbite > 0 && damage > 0) {
-                player.hooks.onAdjustFrostbite.call(1)
+                player.hooks.onAdjustFrostbite.call(2)
             }
             return props
         })

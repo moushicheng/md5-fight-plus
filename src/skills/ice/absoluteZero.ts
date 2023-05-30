@@ -1,6 +1,6 @@
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
-import { getOpponent, getRandomItem, releaseFrostbite, removeHook } from "@/utils";
+import { getOpponent, getRandomItem, releaseFrostbite, removeHookInRoundEnd } from "@/utils";
 
 const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
     const defender = getOpponent(player)
@@ -16,7 +16,7 @@ export function _absoluteZero(player: PlayerInstanceProperty) {
         player.battleField.logger.addInfo(getAttackInfo(player, 5), player.hooks.onAttack);
         return { ...props, damage: 0 }
     })
-    removeHook(player, id, 'onAttack')
+    removeHookInRoundEnd(player, id, 'onAttack')
 }
 export const absoluteZero: Skill = {
     name: '绝对零度',

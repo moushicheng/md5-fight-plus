@@ -1,10 +1,10 @@
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
-import { getRandomItem, releaseFrostbite, removeHook } from "@/utils";
+import { getRandomItem, releaseFrostbite, removeHookInRoundEnd } from "@/utils";
 
 const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
     const info = [
-        `${player.name}搓了搓手，召唤并丢出一个...雪球！造成${atk}伤害，【霜蚀】5`,
+        `${player.name}搓了搓手，召唤并丢出一个...雪球！造成${atk}伤害，【霜蚀】8`,
     ]
     return getRandomItem(info)
 }
@@ -16,7 +16,7 @@ export function _snowball(player: PlayerInstanceProperty) {
         player.battleField.logger.addInfo(getAttackInfo(player, atk), player.hooks.onAttack);
         return { ...props, damage: atk }
     })
-    removeHook(player, id, 'onAttack')
+    removeHookInRoundEnd(player, id, 'onAttack')
 }
 export const snowball: Skill = {
     name: '丢雪球',
