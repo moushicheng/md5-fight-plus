@@ -4,10 +4,12 @@ import { PlayerInstanceProperty } from "@/types/player";
 import { getPlayers } from "@/utils";
 import skillList from '@/skills/index'
 import { initBuffFrostbite } from "./registerFrostbiteHook";
+import { initBuffFiring } from "./registerFiring";
 
 export function registerHooks(battleField: BattleFieldInstance) {
     initFightStart(battleField)
     initBuffFrostbite(battleField)
+    // initBuffFiring(battleField)
     initAdjustRuntime(battleField)
 }
 function initFightStart(battleField: BattleFieldInstance) {

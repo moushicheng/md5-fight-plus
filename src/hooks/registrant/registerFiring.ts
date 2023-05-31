@@ -2,7 +2,7 @@ import { BattleFieldInstance } from "@/types/battleField";
 import { PlayerInstanceProperty } from "@/types/player";
 import { getPlayers } from "@/utils";
 
-export function initBuffFrostbite(battleField: BattleFieldInstance) {
+export function initBuffFiring(battleField: BattleFieldInstance) {
     const { player1, player2 } = getPlayers(battleField);
     run(player1)
     run(player2)
@@ -15,7 +15,7 @@ export function initBuffFrostbite(battleField: BattleFieldInstance) {
             const firing = player.runtimeProperty.firing;
             const firingDamage = Math.ceil((firing / 100) * damage)
             if (firing === 0 || damage === 0) return props;
-            props.damage = props.damage + firingDamage
+            props.damage = firingDamage
             player.hooks.onAdjustFiring.call(-1)
             return props
         })
