@@ -61,7 +61,7 @@ export class SyncBailHook<T>{
                     this.removeTap(currentTap.id)
                     i--;
                 }
-                hooksRecord.push(this.cbs[i].options.name)
+                hooksRecord.push(currentTap.options.name)
                 //如果返回值是BailEvent,则会直接熔断。
                 if (this.bailedResult instanceof BailEvent) break;
 

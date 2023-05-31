@@ -5,7 +5,7 @@ import { Level } from "@/logs";
 
 const p1 = createPlayer('p3')
 const p2 = createPlayer('p2')
-p1.skills = ['absoluteZero', 'freeze', 'a', 'a', 'a']
+p1.skills = ['a', 'a', 'a', 'a', 'a']
 console.log('@创建角色成功', p1.name, p1.baseProperty);
 console.log('@创建角色成功', p2.name, p2.baseProperty);
 const battleField = createBattleField(p1, p2)
