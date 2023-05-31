@@ -18,7 +18,7 @@ export function _icePiton(player: PlayerInstanceProperty) {
     })
     removeHookInRoundEnd(player, id, 'onAttack')
 }
-export const snowball: Skill = {
+export const icePiton: Skill = {
     name: '冰锥刺击',
     description: '造成3点伤害，【霜蚀】12',
     mana: 3,
