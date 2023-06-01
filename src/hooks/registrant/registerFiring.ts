@@ -16,7 +16,7 @@ export function initBuffFiring(battleField: BattleFieldInstance) {
             const firing = attacker.runtimeProperty.firing;
             const firingDamage = Math.ceil((firing / 100) * damage)
             if (firing <= 0 || damage <= 0) return props;
-            const currentDamage = damage * firingDamage / 100
+            const currentDamage = Math.ceil(damage * firingDamage / 100)
             props.damage = currentDamage
             attacker.hooks.onAdjustFiring.call(-1)
             player.hooks.onAdjustHp.call(-currentDamage)

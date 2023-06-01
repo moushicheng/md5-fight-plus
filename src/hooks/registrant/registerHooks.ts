@@ -9,7 +9,7 @@ import { initBuffFiring } from "./registerFiring";
 export function registerHooks(battleField: BattleFieldInstance) {
     initFightStart(battleField)
     initBuffFrostbite(battleField)
-    // initBuffFiring(battleField)
+    initBuffFiring(battleField)
     initAdjustRuntime(battleField)
 }
 function initFightStart(battleField: BattleFieldInstance) {
