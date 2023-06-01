@@ -7,7 +7,7 @@ import { absoluteZero } from './ice/absoluteZero'
 import { iceArmor } from './ice/iceArmor'
 import { freeze } from './ice/freeze'
 import { icePiton } from './ice/icePiton'
-import { fireblast } from './firing/fireblast'
+import { fireBlast } from './firing/fireblast'
 
 const raw_skills = {
     normalAttack,
@@ -17,7 +17,7 @@ const raw_skills = {
     iceArmor,
     freeze,
     icePiton,
-    fireblast,
+    fireBlast,
 }
 Object.keys(raw_skills).forEach(key => {
     const skill = raw_skills[key]
