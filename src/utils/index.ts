@@ -66,6 +66,9 @@ export const releaseFrostbite = (player: PlayerInstanceProperty, frostbite: numb
         return props
     })
 }
+export const releaseFiring = (player: PlayerInstanceProperty, firing: number) => {
+    player.hooks.onAdjustFiring.call(firing);
+}
 export const removeHookInRoundEnd = (player: PlayerInstanceProperty, id: number, inHooks: string) => {
     const battleField = player.battleField
     battleField.roundHooks.roundEnd.tap('remove frostbiteAttack', (props) => {
