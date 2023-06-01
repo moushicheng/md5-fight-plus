@@ -44,11 +44,6 @@ function initRoundStart(battleField: BattleFieldInstance) {
 }
 
 function initRoundEnd(battleField: BattleFieldInstance) {
-    battleField.roundHooks.roundEnd.tap('increase round count', (battleField) => {
-        //增加回合计数
-        battleField.roundCount++;
-        return battleField
-    })
     battleField.roundHooks.roundEnd.tap('exec player action count', (battleField) => {
         //处理玩家行动计数
         const { player1, player2 } = getPlayers(battleField)

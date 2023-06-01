@@ -35,10 +35,9 @@ export function initPlayer(battleField: BattleFieldInstance, p1: PlayerInstanceP
 export function initFight(battleField: BattleFieldInstance) {
     battleField.fight = () => {
         battleField.hooks.fightStart.call(battleField)
-        battleField.roundCount++;//从第0回合开始计数
         try {
-            for (let i = 0; i < 100; i++) {
-                battleField.logger.addInfo(`------------------第${i}回合------------------`)
+            for (; battleField.roundCount < 100; battleField.roundCount++) {
+                battleField.logger.addInfo(`------------------第${battleField.roundCount}回合------------------`)
                 battleField.round()
             }
             throw new RoundTimeOutEvent()
