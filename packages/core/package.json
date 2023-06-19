@@ -18,7 +18,6 @@
     "tslib": "^2.5.0"
   },
   "dependencies": {
-    "blueimp-md5": "^2.19.0",
-
+    "blueimp-md5": "^2.19.0"
   }
 }
