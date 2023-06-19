@@ -12,7 +12,7 @@ const getInfo = (player: PlayerInstanceProperty, atk: number) => {
 export function _fireblast(player: PlayerInstanceProperty) {
     const id = player.hooks.onAttack.tap({ name: 'fireblast', lives: 1 }, (props) => {
         const atk = 10
-        releaseFiring(player, 2)
+        releaseFiring(player, 20)
         player.battleField.logger.addInfo(getInfo(player, atk), player.hooks.onAttack);
         return { ...props, damage: atk }
     })
@@ -21,6 +21,6 @@ export function _fireblast(player: PlayerInstanceProperty) {
 export const fireBlast: Skill = {
     name: '火焰冲击',
     description: '造成10点伤害,【灼热】2',
-    mana: 4,
+    mana: 2,
     run: _fireblast
 }

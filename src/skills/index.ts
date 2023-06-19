@@ -7,7 +7,7 @@ import { absoluteZero } from './ice/absoluteZero'
 import { iceArmor } from './ice/iceArmor'
 import { freeze } from './ice/freeze'
 import { icePiton } from './ice/icePiton'
-import { fireBlast } from './firing/fireblast'
+import { fireBlast } from './firing/fireBlast'
 
 const raw_skills = {
     normalAttack,

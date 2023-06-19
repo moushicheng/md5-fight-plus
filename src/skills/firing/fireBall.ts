@@ -20,6 +20,6 @@ export function _fireBall(player: PlayerInstanceProperty) {
 export const fireBall: Skill = {
     name: '火焰冲击',
     description: '造成20点伤害,【灼热】4',
-    mana: 2,
+    mana: 4,
     run: _fireBall
 }

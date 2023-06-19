@@ -18,7 +18,7 @@ export function initBuffFiring(battleField: BattleFieldInstance) {
             if (firing <= 0 || damage <= 0) return props;
             const currentDamage = Math.ceil(damage * firingDamage / 100)
             props.damage = currentDamage
-            attacker.hooks.onAdjustFiring.call(-1)
+            // attacker.hooks.onAdjustFiring.call(-1)
             player.hooks.onAdjustHp.call(-currentDamage)
             battleField.logger.addInfo(`由于灼热效果,${player.name}再受到${currentDamage}点伤害`)
             return props
