@@ -6,6 +6,7 @@
 ```js
 npm install -g nodemon
 npm install -g ts-node
+npm install 
 ```
 
 ```js
