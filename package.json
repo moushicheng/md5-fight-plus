@@ -1,26 +1,19 @@
 {
-  "name": "MD5-Fight-plus",
+  "name": "MD5-fight-plus",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "pricate":true,
   "scripts": {
-    "dev": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "core":"pnpm -C ./packages/core dev"
   },
-  "keywords": [
-    "MD5",
-    "fight",
-    "game"
-  ],
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/lodash": "^4.14.194",
     "@types/node": "^20.1.4",
-    "tslib": "^2.5.0"
+    "@types/lodash": "^4.14.194"
   },
   "dependencies": {
-    "blueimp-md5": "^2.19.0",
     "lodash": "^4.17.21",
     "tsconfig-paths": "^4.2.0"
   }
