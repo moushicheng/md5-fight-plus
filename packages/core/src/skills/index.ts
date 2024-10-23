@@ -1,4 +1,3 @@
-import { preprocessSkill } from "@/utils";
 import { snowball } from "./ice/snowball";
 import { normalAttack } from "./normal-attack";
 import { blizzard } from "./ice/blizzard";
@@ -8,8 +7,9 @@ import { freeze } from "./ice/freeze";
 import { icePiton } from "./ice/icePiton";
 import { fireBlast } from "./firing/fireblast";
 import { fireElf } from "./firing/fireElf";
-
-const raw_skills = {
+import { Skill } from "@/types/skill";
+import { PlayerInstanceProperty } from "@/types/player";
+export const raw_skills = {
   normalAttack,
   snowball,
   blizzard,
@@ -19,6 +19,26 @@ const raw_skills = {
   icePiton,
   fireBlast,
   fireElf,
+};
+
+export const preprocessSkill = (skill: Skill) => {
+  const raw_run = skill.run;
+  return function cb(player: PlayerInstanceProperty) {
+    //查看蓝耗
+    if (!canUseSkill(player, skill.mana)) {
+      player.battleField.logger.addInfo(`${player.name}累趴了，摸鱼一回合（`);
+      return;
+    }
+    raw_run(player);
+    player.hooks.onAdjustMana.call(-skill.mana);
+  };
+};
+export const canUseSkill = (player: PlayerInstanceProperty, mana: number) => {
+  if (player.runtimeProperty.mana < mana) {
+    //说明mp不够了
+    return false;
+  }
+  return true;
 };
 Object.keys(raw_skills).forEach((key) => {
   const skill = raw_skills[key];

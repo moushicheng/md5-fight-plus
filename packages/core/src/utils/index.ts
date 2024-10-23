@@ -30,26 +30,6 @@ export const checkPlayerDeath = (battleField: BattleFieldInstance) => {
     return new PlayerDeathEvent(`玩家【${player2.name}阵亡,游戏结束】`);
   }
 };
-export const canUseSkill = (player: PlayerInstanceProperty, mana: number) => {
-  if (player.runtimeProperty.mana < mana) {
-    //说明mp不够了
-    return false;
-  }
-  return true;
-};
-
-export const preprocessSkill = (skill: Skill) => {
-  const raw_run = skill.run;
-  return function cb(player: PlayerInstanceProperty) {
-    //查看蓝耗
-    if (!canUseSkill(player, skill.mana)) {
-      player.battleField.logger.addInfo(`${player.name}累趴了，摸鱼一回合（`);
-      return;
-    }
-    raw_run(player);
-    player.hooks.onAdjustMana.call(-skill.mana);
-  };
-};
 
 export const toUpperFirstCase = (name: string) =>
   name.charAt(0).toUpperCase() + name.slice(1);

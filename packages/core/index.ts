@@ -1,7 +1,7 @@
 import { createBattleField } from "@/battle-field";
 import { createPlayer } from "./src/player";
 import { Level } from "@/logs";
-
+import skillList from "@/skills/index";
 const p1 = createPlayer("p3");
 const p2 = createPlayer("p2");
 p1.skills = ["fireBlast", "fireElf", "a", "a", "ab"];
@@ -16,3 +16,4 @@ console.log(
     .map((item) => item.message)
     .join("\n")
 );
+export { createPlayer, createBattleField, skillList };
