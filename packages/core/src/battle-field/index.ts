@@ -6,7 +6,7 @@ import { registerHooks } from "../hooks/registrant/registerHooks";
 import { initRound } from "./initRound";
 import { RoundTimeOutEvent } from "@/events/roundTimeOut";
 import { registerAfterActionHook } from "./registerIntercept";
-import { createLogger } from "@/logs";
+import { createLogger, RoundStart } from "@/logs";
 import { getPlayerState, getPlayers } from "@/utils";
 
 export function createBattleField(
@@ -46,7 +46,8 @@ export function initFight(battleField: BattleFieldInstance) {
     try {
       for (; battleField.roundCount < 100; battleField.roundCount++) {
         battleField.logger.addInfo(
-          `------------------第${battleField.roundCount}回合------------------`
+          `------------------第${battleField.roundCount}回合------------------`,
+          RoundStart
         );
         battleField.round();
       }
@@ -55,7 +56,6 @@ export function initFight(battleField: BattleFieldInstance) {
       const message = err.message ? err.message : err;
       battleField.logger.addInfo(`游戏结束,原因: ${message}`, "game over");
       battleField.logger.addError(`游戏结束,原因: ${message}`, "game over");
-      console.log(err);
     }
   };
 }
@@ -72,5 +72,6 @@ export function initLogger(battleField: BattleFieldInstance) {
   battleField.logger = createLogger({
     filePath: "battleField.log.json",
     mode: "JSON",
+    battleField,
   });
 }
