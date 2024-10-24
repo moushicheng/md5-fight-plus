@@ -4,8 +4,7 @@ import {
   PlayerInstanceProperty,
   PlayerRuntimeContext,
   PlayerRuntimeProperty,
-  PlayerStatus,
-} from "src/types/player";
+} from "@/types/player";
 import { SyncBailHook } from "@/hooks/SyncBailHook";
 import { BattleFieldInstance } from "@/types/battleField";
 
