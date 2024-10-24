@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "nodemon",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ts-node -r tsconfig-paths/register test.ts",
     "build": "tsc && tsc-alias",
     "prepublishOnly": "npm run build",
     "preinstall": "npx only-allow pnpm"
@@ -20,9 +20,12 @@
   "devDependencies": {
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
-    "tslib": "^2.5.0"
+    "tslib": "^2.5.0",
+    "@types/lodash": "^4.14.194",
+    "@types/node": "^20.1.4"
   },
   "dependencies": {
-    "blueimp-md5": "^2.19.0"
+    "blueimp-md5": "^2.19.0",
+    "lodash": "^4.17.21"
   }
 }

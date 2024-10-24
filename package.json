@@ -2,19 +2,11 @@
   "name": "MD5-fight-plus",
   "version": "1.0.0",
   "description": "",
-  "pricate":true,
+  "pricate": true,
   "scripts": {
-    "core":"pnpm -C ./packages/core dev"
+    "core": "pnpm -C ./packages/core dev"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "@types/node": "^20.1.4",
-    "@types/lodash": "^4.14.194"
-  },
-  "dependencies": {
-    "lodash": "^4.17.21",
-    "tsconfig-paths": "^4.2.0"
-  }
+  "license": "ISC"
 }
