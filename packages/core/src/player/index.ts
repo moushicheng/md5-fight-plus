@@ -112,6 +112,53 @@ export const createPlayer = function (name: string) {
   const currentPlayer: PlayerInstanceProperty = playerParameter;
   return currentPlayer;
 };
+//从基础属性中加载一个Players
+type Config = {
+  name: string;
+  baseProperty: PlayerBaseProperty;
+  skills: string[];
+  level: number;
+};
+export const loadPlayer = function (config: Config) {
+  const md5Numbers = calculateProperty(config.name);
+  //属性设定
+  const baseProperty = config.baseProperty;
+  //等级设定
+  const level = config.level;
+  //技能组
+  const skills = config.skills;
+  //hooks列表
+  const hooks = createPlayerHook();
+  const runtimeProperty: PlayerRuntimeProperty = {
+    hp: undefined,
+    attack: undefined,
+    speed: undefined,
+    mana: undefined,
+    stunned: false,
+    firing: 0,
+    frostbite: 0,
+    poison: 0,
+    armor: 0,
+  };
+  const runtimeContext: PlayerRuntimeContext = {
+    actionTimes: 0, //行动计数
+    roundCount: 0,
+    skills: [],
+  };
+  const playerParameter: PlayerInstanceProperty = {
+    name: config.name,
+    baseProperty,
+    level,
+    skills,
+    hooks,
+    runtimeProperty,
+    runtimeContext,
+    battleField: undefined,
+  };
+  hooks.initProperty.call(playerParameter);
+  const currentPlayer: PlayerInstanceProperty = playerParameter;
+  return currentPlayer;
+};
 
 export const createPlayerHook = () => {
   const hooks = {
