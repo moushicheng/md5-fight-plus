@@ -45,10 +45,6 @@ export function initFight(battleField: BattleFieldInstance) {
     battleField.hooks.fightStart.call(battleField);
     try {
       for (; battleField.roundCount < 100; battleField.roundCount++) {
-        battleField.logger.addInfo(
-          `------------------第${battleField.roundCount}回合------------------`,
-          RoundStart
-        );
         battleField.round();
       }
       throw new RoundTimeOutEvent();

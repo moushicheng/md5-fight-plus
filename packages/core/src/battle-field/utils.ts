@@ -8,4 +8,6 @@ export const initOrder = (
 ) => {
   battleField.players.left = player1;
   battleField.players.right = player2;
+  player1.runtimeContext.isAttacker = true;
+  player2.runtimeContext.isAttacker = false;
 };

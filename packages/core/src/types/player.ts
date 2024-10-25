@@ -58,6 +58,7 @@ export type PlayerRuntimeContext = {
   roundCount: number; //回合次数
   actionTimes: number; //行动计数
   skills: any[];
+  isAttacker?: boolean;
 };
 
 export type PlayerInstanceProperty = {

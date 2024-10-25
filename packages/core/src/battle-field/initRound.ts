@@ -1,4 +1,3 @@
-import { PlayerDeathEvent } from "@/events/playerDeath";
 import { SyncBailHook } from "@/hooks/SyncBailHook";
 import { BattleFieldInstance } from "@/types/battleField";
 

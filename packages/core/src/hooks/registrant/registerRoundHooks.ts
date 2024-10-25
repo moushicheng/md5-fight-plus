@@ -8,6 +8,7 @@ import { getPlayerState, getPlayers, initFnToPlayers } from "@/utils";
 import { initOrder } from "../../battle-field/utils";
 import { PlayerInstanceProperty } from "@/types/player";
 import _ from "lodash";
+import { RoundStart } from "@/logs";
 export function registerRoundHooks(battleField: BattleFieldInstance) {
   const { player1: attacker, player2: defender } = getPlayers(battleField);
   initRoundStart(battleField);
@@ -43,6 +44,13 @@ function initRoundStart(battleField: BattleFieldInstance) {
       }
     }
 
+    return battleField;
+  });
+  battleField.roundHooks.roundStart.tap("Start Info", (battleField) => {
+    battleField.logger.addInfo(
+      `------------------第${battleField.roundCount}回合------------------`,
+      RoundStart
+    );
     return battleField;
   });
 }
