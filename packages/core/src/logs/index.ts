@@ -1,7 +1,7 @@
 import { BattleFieldInstance } from "@/types/battleField";
 import { PlayerInstanceProperty } from "@/types/player";
 import { writeFile } from "fs";
-import { omit } from "lodash";
+import { cloneDeep, omit } from "lodash";
 
 export const RoundStart = "RoundStart";
 
@@ -20,7 +20,7 @@ type Log = {
   level: number;
   type: any;
   players: {
-    [key: string]: Omit<PlayerInstanceProperty, "hooks">;
+    [key: string]: Omit<PlayerInstanceProperty, "hooks" | "battleField">;
   };
 };
 type Options = {
@@ -56,8 +56,12 @@ export const createLogger = (options?: Options): Logger => {
       level,
       type,
       players: {
-        [players.left.name]: omit(players.left, ["hooks"]),
-        [players.right.name]: omit(players.right, ["hooks"]),
+        [players.left.name]: cloneDeep(
+          omit(players.left, ["hooks", "battleField"])
+        ),
+        [players.right.name]: cloneDeep(
+          omit(players.right, ["hooks", "battleField"])
+        ),
       },
     };
     LogContainer.push(newLog);
