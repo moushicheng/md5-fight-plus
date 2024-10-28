@@ -37,14 +37,14 @@ function getBaseProperty(dataSources: number[]) {
 }
 function adjustPropertyBefore(baseProperty: PlayerBaseProperty, total: number) {
   //调整生命值
-  // let max = -1;
-  // let maxKey = ''
-  // for (const key in baseProperty) {
-  //     if (max < baseProperty[key]) {
-  //         max = baseProperty[key]
-  //         maxKey = key;
-  //     }
-  // }
+  let max = -1;
+  let maxKey = "";
+  for (const key in baseProperty) {
+    if (max < baseProperty[key]) {
+      max = baseProperty[key];
+      maxKey = key;
+    }
+  }
   // if (maxKey !== 'CON') {
   //     baseProperty[maxKey] = baseProperty['CON']
   //     baseProperty['CON'] = max;
@@ -54,7 +54,8 @@ function adjustPropertyBefore(baseProperty: PlayerBaseProperty, total: number) {
     baseProperty[key] = (baseProperty[key] * 40) / total;
   }
   if (baseProperty["SPD"] < 3) baseProperty["SPD"] = 3;
-
+  baseProperty["MANA"] = baseProperty["MANA"] + 3;
+  baseProperty[maxKey] = baseProperty[maxKey] - 3;
   // //调整攻击力
   // if (baseProperty['STR'] > 7) {
   //     const diff = baseProperty['STR'] * 0.4
