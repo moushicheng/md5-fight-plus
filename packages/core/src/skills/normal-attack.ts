@@ -18,7 +18,7 @@ export function _normalAttack(player: PlayerInstanceProperty) {
       lives: 1,
     },
     ({ battleField, oneRoundContext }) => {
-      const atk = Math.round(player.runtimeProperty.attack * 0.7);
+      const atk = Math.round(player.runtimeProperty.attack * 0.5);
       player.battleField.logger.addInfo(
         getAttackInfo(player, atk),
         player.hooks.onAttack
@@ -30,6 +30,6 @@ export function _normalAttack(player: PlayerInstanceProperty) {
 export const normalAttack: Skill = {
   name: "普通攻击",
   description: "简简单单攻击一下...",
-  mana: 2,
+  mana: 1,
   run: _normalAttack,
 };
