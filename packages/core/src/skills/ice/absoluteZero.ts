@@ -6,6 +6,7 @@ import {
   releaseFrostbite,
   removeHookInRoundEnd,
 } from "@/utils";
+import { FIRE_TYPE } from "../firing";
 
 const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
   const defender = getOpponent(player);
@@ -31,4 +32,5 @@ export const absoluteZero: Skill = {
   description: "【霜蚀】50",
   mana: 8,
   run: _absoluteZero,
+  type: [FIRE_TYPE],
 };

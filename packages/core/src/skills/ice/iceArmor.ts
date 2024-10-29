@@ -6,6 +6,7 @@ import {
   releaseFrostbite,
   removeHookInRoundEnd,
 } from "@/utils";
+import { FIRE_TYPE } from "../firing";
 
 const getInfo = (player: PlayerInstanceProperty) => {
   const info = [`${player.name}释放【寒冰护甲】，获得10点护甲值`];
@@ -34,4 +35,5 @@ export const iceArmor: Skill = {
   description: "获得10点护甲，下一回合中每当受到一次攻击，【霜蚀】5",
   mana: 3,
   run: _iceArmor,
+  type: [FIRE_TYPE],
 };

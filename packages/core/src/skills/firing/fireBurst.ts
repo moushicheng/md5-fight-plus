@@ -1,6 +1,7 @@
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
 import { getRandomItem, releaseFiring, removeHookInRoundEnd } from "@/utils";
+import { FIRE_TYPE } from ".";
 
 const getInfo = (player: PlayerInstanceProperty, atk: number) => {
   const info = [`${player.name}释放【炎爆术】造成${atk}伤害`];
@@ -24,4 +25,5 @@ export const fireBurst: Skill = {
   description: "造成40点伤害,【灼热】8",
   mana: 8,
   run: _fireBurst,
+  type: [FIRE_TYPE],
 };

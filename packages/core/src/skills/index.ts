@@ -13,6 +13,7 @@ import { fireElf } from "./firing/fireElf";
 import { fireBall } from "./firing/fireBall";
 import { fireBurst } from "./firing/fireBurst";
 import { fireStorm } from "./firing/fireStorm";
+
 export const raw_skills = {
   normalAttack,
   //冰技能

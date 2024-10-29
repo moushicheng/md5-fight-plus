@@ -1,6 +1,7 @@
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
 import { getOpponent, getRandomItem, removeHookInRoundEnd } from "@/utils";
+import { FIRE_TYPE } from "../firing";
 
 const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
   const info = [`${player.name}召唤【暴风雪】，造成${atk}点伤害！`];
@@ -25,4 +26,5 @@ export const blizzard: Skill = {
   description: "造成【霜蚀】层数X3的伤害 ,并将目标的【霜蚀】层数清零",
   mana: 5,
   run: _blizzard,
+  type: [FIRE_TYPE],
 };

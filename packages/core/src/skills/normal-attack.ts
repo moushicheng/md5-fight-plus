@@ -2,6 +2,7 @@ import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
 import _ from "lodash";
 import { getRandomItem, removeHookInRoundEnd } from "@/utils";
+import { GENERAL_TYPE } from "./general";
 /**普通攻击 */
 const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
   const info = [
@@ -32,4 +33,5 @@ export const normalAttack: Skill = {
   description: "简简单单攻击一下...",
   mana: 1,
   run: _normalAttack,
+  type: [GENERAL_TYPE],
 };

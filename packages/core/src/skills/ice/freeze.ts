@@ -6,6 +6,7 @@ import {
   releaseFrostbite,
   removeHookInRoundEnd,
 } from "@/utils";
+import { FIRE_TYPE } from "../firing";
 
 const info = (player: PlayerInstanceProperty, spd: number) => {
   const defender = getOpponent(player);
@@ -40,4 +41,5 @@ export const freeze: Skill = {
   description: "冰结术",
   mana: 2,
   run: _freeze,
+  type: [FIRE_TYPE],
 };

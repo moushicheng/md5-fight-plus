@@ -6,6 +6,7 @@ import {
   releaseFrostbite,
   removeHookInRoundEnd,
 } from "@/utils";
+import { FIRE_TYPE } from ".";
 
 const getInfo = (player: PlayerInstanceProperty, atk: number) => {
   const info = [`火羽精灵进攻，造成${atk}点伤害`];
@@ -35,4 +36,5 @@ export const fireElf: Skill = {
     "获得【灼热】1，火羽精灵，【持续】4，己方回合结束时，造成【灼热】层数的伤害",
   mana: 4,
   run: _fireElf,
+  type: [FIRE_TYPE],
 };

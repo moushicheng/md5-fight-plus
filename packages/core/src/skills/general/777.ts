@@ -1,6 +1,7 @@
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
 import { removeHookInRoundEnd } from "@/utils";
+import { GENERAL_TYPE } from ".";
 export function _skill_777(player: PlayerInstanceProperty) {
   const id = player.hooks.onAttack.tap("init frostbiteAttack", (props) => {
     const roundTimes = player.battleField.roundCount;
@@ -41,4 +42,5 @@ export const skill_777: Skill = {
   description: "来一次神奇的赌博！",
   mana: 5,
   run: _skill_777,
+  type: [GENERAL_TYPE],
 };

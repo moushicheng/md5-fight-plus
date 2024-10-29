@@ -1,6 +1,7 @@
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
 import { getRandomItem, releaseFrostbite, removeHookInRoundEnd } from "@/utils";
+import { FIRE_TYPE } from "../firing";
 
 const getInfo = (player: PlayerInstanceProperty, atk: number) => {
   const info = [
@@ -26,4 +27,5 @@ export const snowball: Skill = {
   description: "造成2点伤害，【霜蚀】8",
   mana: 2,
   run: _snowball,
+  type: [FIRE_TYPE],
 };

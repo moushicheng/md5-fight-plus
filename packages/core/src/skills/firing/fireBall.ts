@@ -6,6 +6,7 @@ import {
   releaseFrostbite,
   removeHookInRoundEnd,
 } from "@/utils";
+import { FIRE_TYPE } from ".";
 
 const getInfo = (player: PlayerInstanceProperty, atk: number) => {
   const info = [`${player.name}释放【火球术】造成${atk}伤害`];
@@ -28,4 +29,5 @@ export const fireBall: Skill = {
   description: "造成20点伤害,【灼热】4",
   mana: 4,
   run: _fireBall,
+  type: [FIRE_TYPE],
 };

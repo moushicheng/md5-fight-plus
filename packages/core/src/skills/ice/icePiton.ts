@@ -1,6 +1,7 @@
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
 import { getRandomItem, releaseFrostbite, removeHookInRoundEnd } from "@/utils";
+import { FIRE_TYPE } from "../firing";
 
 const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
   const info = [
@@ -26,4 +27,5 @@ export const icePiton: Skill = {
   description: "造成3点伤害，【霜蚀】12",
   mana: 3,
   run: _icePiton,
+  type: [FIRE_TYPE],
 };
