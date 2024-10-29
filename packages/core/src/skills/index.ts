@@ -5,20 +5,29 @@ import { absoluteZero } from "./ice/absoluteZero";
 import { iceArmor } from "./ice/iceArmor";
 import { freeze } from "./ice/freeze";
 import { icePiton } from "./ice/icePiton";
-import { fireBlast } from "./firing/fireblast";
-import { fireElf } from "./firing/fireElf";
+
 import { Skill } from "@/types/skill";
 import { PlayerInstanceProperty } from "@/types/player";
+import { fireBlast } from "./firing/fireblast";
+import { fireElf } from "./firing/fireElf";
+import { fireBall } from "./firing/fireBall";
+import { fireBurst } from "./firing/fireBurst";
+import { fireStorm } from "./firing/fireStorm";
 export const raw_skills = {
   normalAttack,
+  //冰技能
   snowball,
   blizzard,
   absoluteZero,
   iceArmor,
   freeze,
   icePiton,
+  //火焰技能
   fireBlast,
   fireElf,
+  fireBall,
+  fireBurst,
+  fireStorm,
 };
 
 export const preprocessSkill = (skill: Skill) => {

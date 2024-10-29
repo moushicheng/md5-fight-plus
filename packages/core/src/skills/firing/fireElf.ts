@@ -14,13 +14,14 @@ const getInfo = (player: PlayerInstanceProperty, atk: number) => {
 
 export function _fireElf(player: PlayerInstanceProperty) {
   let isFirst = true;
-  player.hooks.onAttack.tap({ name: "fireElf", lives: 3 }, (props) => {
+  player.hooks.onAttack.tap({ name: "fireElf", lives: 5 }, (props) => {
+    const atk = player.runtimeProperty.firing;
+    releaseFiring(player, 1);
     if (isFirst) {
       isFirst = false;
       player.battleField.logger.addInfo(`${player.name}召唤火羽精灵`);
-      return { ...props, damage: 0 };
+      return { ...props, damage: atk };
     }
-    const atk = player.runtimeProperty.firing;
     player.battleField.logger.addInfo(
       getInfo(player, atk),
       player.hooks.onAttack
@@ -30,7 +31,8 @@ export function _fireElf(player: PlayerInstanceProperty) {
 }
 export const fireElf: Skill = {
   name: "火羽精灵",
-  description: "火羽精灵，【持续】2，己方回合结束时，造成【灼热】层数的伤害",
+  description:
+    "获得【灼热】1，火羽精灵，【持续】4，己方回合结束时，造成【灼热】层数的伤害",
   mana: 4,
   run: _fireElf,
 };
