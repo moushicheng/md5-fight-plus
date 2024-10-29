@@ -79,11 +79,11 @@ function initRoundEnd(battleField: BattleFieldInstance) {
       return battleField;
     }
   );
+  //每个回合结束，回复一点蓝量
   battleField.roundHooks.roundEnd.tap("recover mana", (battleField) => {
     initFnToPlayers(battleField, (player: PlayerInstanceProperty) => {
-      const canRecover = player.runtimeContext.roundCount % 5 === 0;
-      if (canRecover) {
-        player.runtimeProperty.mana = player.baseProperty.MANA;
+      if (player.runtimeProperty.mana <= player.baseProperty.MANA) {
+        player.runtimeProperty.mana++;
       }
     });
     return battleField;
