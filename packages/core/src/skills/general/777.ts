@@ -10,9 +10,8 @@ export function _skill_777(player: PlayerInstanceProperty) {
     let info = `${player.name}释放【777】，正在进行神秘的抽签..`;
 
     const infos = [];
-    const { hp, atk } = getAtkAndHp(roundTimes, infos);
-    if (hp) player.hooks.onAdjustHp.call(hp);
-    infos.push(`\n抽签结束共计造成${atk}伤害恢复${hp}点生命`);
+    const atk = getAtkAndHp(roundTimes, infos);
+    infos.push(`\n抽签结束共计造成${atk}伤害！`);
     info += infos.join("，") + "!";
 
     player.battleField.logger.addInfo(info);
@@ -29,23 +28,18 @@ export const skill_777: Skill = {
 };
 
 const getAtkAndHp = (roundTimes: number, infos: string[]) => {
-  let atk = roundTimes % 2 === 0 ? (getRandomScope(0, 50) % 7) * 7 : 0;
-  let hp = roundTimes % 5 === 0 ? 7 : 0;
+  let atk = roundTimes % 2 === 0 ? (getRandomScope(0, 7 * 3) % 7) * 7 : 0;
   const again = getRandomScope(0, 10) >= 7;
-  if (atk !== 0) {
-    infos.push(`+${atk}点伤害`);
-  }
-  if (hp !== 0) {
-    infos.push(`+${hp}点生命`);
-  }
+
+  infos.push(`【${atk}】`);
+
   if (again) {
     infos.push("再来一次！再次进行抽签...");
   }
   if (again) {
-    const next = getAtkAndHp(roundTimes + 1, infos);
-    atk += next.atk;
-    atk += hp;
+    const _atk = getAtkAndHp(roundTimes + 1, infos);
+    atk += _atk;
   }
 
-  return { atk, hp };
+  return atk;
 };

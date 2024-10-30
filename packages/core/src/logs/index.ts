@@ -4,7 +4,7 @@ import { writeFile } from "fs";
 import { cloneDeep, omit } from "lodash";
 
 export const RoundStart = "RoundStart";
-
+export const onUnderAttack = "onUnderAttack";
 //消息级别:Level(info,warning,error
 export enum Level {
   error = 0,

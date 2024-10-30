@@ -8,7 +8,7 @@ import { getPlayerState, getPlayers, initFnToPlayers } from "@/utils";
 import { initOrder } from "../../battle-field/utils";
 import { PlayerInstanceProperty } from "@/types/player";
 import _ from "lodash";
-import { RoundStart } from "@/logs";
+import { onUnderAttack, RoundStart } from "@/logs";
 export function registerRoundHooks(battleField: BattleFieldInstance) {
   const { player1: attacker, player2: defender } = getPlayers(battleField);
   initRoundStart(battleField);
@@ -187,7 +187,7 @@ function initOnUnderAttack(battleField: BattleFieldInstance) {
         `${player.name}: 受到${damage}点伤害,当前剩余【hp】${[
           player.runtimeProperty.hp,
         ]}`,
-        player.hooks.onUnderAttack
+        "calculateDamage"
       );
       return props;
     });
