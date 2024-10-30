@@ -13,6 +13,7 @@ import { fireElf } from "./firing/fireElf";
 import { fireBall } from "./firing/fireBall";
 import { fireBurst } from "./firing/fireBurst";
 import { fireStorm } from "./firing/fireStorm";
+import { skill_777 } from "./general/777";
 
 export const raw_skills = {
   normalAttack,
@@ -29,6 +30,8 @@ export const raw_skills = {
   fireBall,
   fireBurst,
   fireStorm,
+  //普通技能
+  skill_777,
 };
 
 export const preprocessSkill = (skill: Skill) => {
