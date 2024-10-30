@@ -14,6 +14,7 @@ import { fireBall } from "./firing/fireBall";
 import { fireBurst } from "./firing/fireBurst";
 import { fireStorm } from "./firing/fireStorm";
 import { skill_777 } from "./general/777";
+import { clam } from "./firing/clam";
 
 export const raw_skills = {
   normalAttack,
@@ -30,6 +31,7 @@ export const raw_skills = {
   fireBall,
   fireBurst,
   fireStorm,
+  clam,
   //普通技能
   skill_777,
 };
@@ -38,12 +40,12 @@ export const preprocessSkill = (skill: Skill) => {
   const raw_run = skill.run;
   return function cb(player: PlayerInstanceProperty) {
     //查看蓝耗
-    if (!canUseSkill(player, skill.mana)) {
+    if (!canUseSkill(player, skill.runtimeProperty.mana)) {
       player.battleField.logger.addInfo(`${player.name}累趴了，摸鱼一回合（`);
       return;
     }
     raw_run(player);
-    player.hooks.onAdjustMana.call(-skill.mana);
+    player.hooks.onAdjustMana.call(-skill.runtimeProperty.mana);
   };
 };
 export const canUseSkill = (player: PlayerInstanceProperty, mana: number) => {
@@ -53,9 +55,14 @@ export const canUseSkill = (player: PlayerInstanceProperty, mana: number) => {
   }
   return true;
 };
+
 Object.keys(raw_skills).forEach((key) => {
-  const skill = raw_skills[key];
+  const skill: Skill = raw_skills[key];
   skill.run = preprocessSkill(skill);
+  skill.runtimeProperty = {
+    mana: skill.mana,
+    type: skill.type,
+  };
 });
 
 export default raw_skills;

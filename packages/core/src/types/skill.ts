@@ -5,4 +5,8 @@ export type Skill = {
   description: string;
   run: (player: PlayerInstanceProperty) => void;
   type: string[];
+  runtimeProperty?: {
+    mana?: number;
+    type?: string[];
+  };
 };
