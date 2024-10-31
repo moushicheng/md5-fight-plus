@@ -17,7 +17,7 @@ const info = (player: PlayerInstanceProperty, spd: number) => {
 };
 
 export function _freeze(player: PlayerInstanceProperty) {
-  const id = player.hooks.onAttack.tap("init frostbiteAttack", (props) => {
+  const id = player.hooks.onAttack.tap("freeze", (props) => {
     const defender = getOpponent(player);
     const defenderFrostbite = defender.runtimeProperty.frostbite;
     const defenderSpeed = defender.runtimeProperty.speed;

@@ -4,7 +4,7 @@ import { removeHookInRoundEnd } from "@/utils";
 import { GENERAL_TYPE } from ".";
 import { getRandomScope } from "../utils";
 export function _skill_777(player: PlayerInstanceProperty) {
-  const id = player.hooks.onAttack.tap("init frostbiteAttack", (props) => {
+  const id = player.hooks.onAttack.tap("777", (props) => {
     const roundTimes = player.runtimeContext.roundCount;
 
     let info = `${player.name}释放【777】，正在进行神秘的抽签..`;

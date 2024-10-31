@@ -15,7 +15,7 @@ const getInfo = (player: PlayerInstanceProperty) => {
 
 export function _iceArmor(player: PlayerInstanceProperty) {
   const defender = getOpponent(player);
-  const id = player.hooks.onAttack.tap("init frostbiteAttack", (props) => {
+  const id = player.hooks.onAttack.tap("iceArmor", (props) => {
     player.hooks.onAdjustArmor.call(10);
     player.battleField.logger.addInfo(getInfo(player), player.hooks.onAttack);
     return props;

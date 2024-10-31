@@ -11,7 +11,7 @@ const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
 };
 
 export function _icePiton(player: PlayerInstanceProperty) {
-  const id = player.hooks.onAttack.tap("init frostbiteAttack", (props) => {
+  const id = player.hooks.onAttack.tap("icePiton", (props) => {
     const atk = 3;
     releaseFrostbite(player, 12);
     player.battleField.logger.addInfo(

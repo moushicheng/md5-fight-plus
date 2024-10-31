@@ -9,7 +9,7 @@ const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
 };
 
 export function _blizzard(player: PlayerInstanceProperty) {
-  const id = player.hooks.onAttack.tap("init frostbiteAttack", (props) => {
+  const id = player.hooks.onAttack.tap("blizzard", (props) => {
     const defender = getOpponent(player);
     const frostbite = defender.runtimeProperty.frostbite;
     const atk = frostbite * 3;

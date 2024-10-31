@@ -17,7 +17,7 @@ const getAttackInfo = (player: PlayerInstanceProperty, atk: number) => {
 };
 
 export function _absoluteZero(player: PlayerInstanceProperty) {
-  const id = player.hooks.onAttack.tap("init frostbiteAttack", (props) => {
+  const id = player.hooks.onAttack.tap("absoluteZero", (props) => {
     releaseFrostbite(player, 50);
     player.battleField.logger.addInfo(
       getAttackInfo(player, 5),

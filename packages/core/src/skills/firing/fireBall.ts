@@ -14,7 +14,7 @@ const getInfo = (player: PlayerInstanceProperty, atk: number) => {
 };
 
 export function _fireBall(player: PlayerInstanceProperty) {
-  player.hooks.onAttack.tap({ name: "fireball", lives: 1 }, (props) => {
+  player.hooks.onAttack.tap({ name: "fireBall", lives: 1 }, (props) => {
     const atk = 20;
     releaseFiring(player, 4);
     player.battleField.logger.addInfo(
