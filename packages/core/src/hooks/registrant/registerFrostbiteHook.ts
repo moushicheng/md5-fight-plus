@@ -29,7 +29,7 @@ export function initBuffFrostbite(battleField: BattleFieldInstance) {
           attacker.hooks.onAdjustFrostbite.call(-buff_frostbite);
           attacker.hooks.onAdjustHp.call(-buff_frostbite);
           battleField.logger.addInfo(
-            `${attacker.name}受到${buff_frostbite}点霜蚀伤害,当前寒霜蚀层数${attacker.runtimeProperty.frostbite}`
+            `${attacker.name}受到${buff_frostbite}点【霜蚀】伤害,当前寒霜蚀层数${attacker.runtimeProperty.frostbite}`
           );
         }
         return props;
