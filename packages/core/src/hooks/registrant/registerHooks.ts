@@ -5,11 +5,13 @@ import { getPlayers } from "@/utils";
 import skillList from "@/skills/index";
 import { initBuffFrostbite } from "./registerFrostbiteHook";
 import { initBuffFiring } from "./registerFiring";
+import { initBuffPoison } from "./registerPosion";
 
 export function registerHooks(battleField: BattleFieldInstance) {
   initFightStart(battleField);
   initBuffFrostbite(battleField);
   initBuffFiring(battleField);
+  initBuffPoison(battleField);
   initAdjustRuntime(battleField);
 }
 function initFightStart(battleField: BattleFieldInstance) {
@@ -52,7 +54,6 @@ function initAdjustRuntime(battleField: BattleFieldInstance) {
     });
     player.hooks.onAdjustMana.tap("adjust Mana", (value) => {
       const val = player.hooks.onAdjustManaBefore.call(value);
-
       player.runtimeProperty.mana += val;
       return value;
     });
@@ -66,6 +67,12 @@ function initAdjustRuntime(battleField: BattleFieldInstance) {
       let nextValue = player.runtimeProperty.firing + value;
       if (nextValue < 0) nextValue = 0;
       player.runtimeProperty.firing = nextValue;
+      return nextValue;
+    });
+    player.hooks.onAdjustPoison.tap("adjust Poison", (value) => {
+      let nextValue = player.runtimeProperty.poison + value;
+      if (nextValue < 0) nextValue = 0;
+      player.runtimeProperty.poison = nextValue;
       return nextValue;
     });
     player.hooks.onAdjustArmor.tap("adjust Armor", (value) => {

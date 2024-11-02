@@ -58,6 +58,16 @@ export const releaseFiring = (
 ) => {
   player.hooks.onAdjustFiring.call(firing);
 };
+export const releasePoison = (
+  player: PlayerInstanceProperty,
+  poison: number
+) => {
+  const id = player.hooks.afterAttack.tap("release Frostbite", (props) => {
+    player.hooks.onAdjustPoison.call(poison);
+    removeHookInRoundEnd(player, id, "afterAttack");
+    return props;
+  });
+};
 export const removeHookInRoundEnd = (
   player: PlayerInstanceProperty,
   id: number,

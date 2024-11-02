@@ -129,6 +129,7 @@ export type PlayerInstanceProperty = {
     onAdjustFrostbite: SyncBailHook<number>;
     onAdjustHp: SyncBailHook<number>;
     onAdjustFiring: SyncBailHook<number>;
+    onAdjustPoison: SyncBailHook<number>;
     onAdjustArmor: SyncBailHook<number>;
     onAdjustSpeed: SyncBailHook<number>;
     [props: string]: SyncBailHook<any>;

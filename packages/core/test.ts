@@ -1,21 +1,39 @@
-// const p1 = createPlayer("p3");
-// const p2 = createPlayer("p2");
-// p1.skills = ["fireBlast", "fireElf", "a", "a", "ab"];
-// console.log(
-//   "@创建角色成功",
-//   p1.name,
-//   p1.baseProperty,
-//   p1.runtimeProperty.firing
-// );
-// console.log("@创建角色成功", p2.name, p2.baseProperty);
-// const battleField = createBattleField(p1, p2);
-// battleField.fight();
+import { createBattleField } from "@/battle-field";
+import { createPlayer } from "@/player";
+import { LogLevel } from ".";
+import { PlayerInstanceProperty } from "@/types/player";
+function setProperty(
+  p1: PlayerInstanceProperty,
+  CON = 10,
+  MANA = 10,
+  SPD = 10,
+  STR = 10
+) {
+  p1.baseProperty.CON = CON;
+  p1.baseProperty.MANA = MANA;
+  p1.baseProperty.SPD = SPD;
+  p1.baseProperty.STR = STR;
+}
+const p1 = createPlayer("p1");
+setProperty(p1);
+const p2 = createPlayer("p2");
+setProperty(p2);
+p1.skills = [
+  "littlePoisonBottle",
+  "littlePoisonBottle",
+  "littlePoisonBottle",
+  "littlePoisonBottle",
+  "littlePoisonBottle",
+];
 
-// console.log(
-//   battleField.logger
-//     .getByLevel(LogLevel.info)
-//     .map((item) => {
-//       return item.message + "p3:" + item.players.p3?.runtimeProperty?.firing;
-//     })
-//     .join("\n")
-// );
+const battleField = createBattleField(p1, p2);
+battleField.fight();
+
+console.log(
+  battleField.logger
+    .getByLevel(LogLevel.info)
+    .map((item) => {
+      return item.message;
+    })
+    .join("\n")
+);
