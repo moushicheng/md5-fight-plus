@@ -15,6 +15,7 @@ import { fireBurst } from "./firing/fireBurst";
 import { fireStorm } from "./firing/fireStorm";
 import { skill_777 } from "./general/777";
 import { clam } from "./firing/clam";
+import { manaBottle } from "./general/manaBottle";
 
 export const raw_skills = {
   normalAttack,
@@ -33,6 +34,7 @@ export const raw_skills = {
   fireStorm,
   clam,
   //普通技能
+  manaBottle,
   skill_777,
 };
 
