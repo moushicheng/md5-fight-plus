@@ -4,7 +4,12 @@ import {
   initActionTimes,
 } from "@/player/utils";
 import { BattleFieldInstance } from "@/types/battleField";
-import { getPlayerState, getPlayers, initFnToPlayers } from "@/utils";
+import {
+  getOpponent,
+  getPlayerState,
+  getPlayers,
+  initFnToPlayers,
+} from "@/utils";
 import { initOrder } from "../../battle-field/utils";
 import { PlayerInstanceProperty } from "@/types/player";
 import _ from "lodash";
@@ -20,6 +25,7 @@ export function registerRoundHooks(battleField: BattleFieldInstance) {
   initRoundEnd(battleField);
 }
 function initRoundStart(battleField: BattleFieldInstance) {
+  let firstPlayer = undefined;
   battleField.roundHooks.roundStart.tap("Order", (battleField) => {
     const { player1, player2 } = getPlayers(battleField);
     const spd1 = getPlayerSpeed(player1);
@@ -36,7 +42,14 @@ function initRoundStart(battleField: BattleFieldInstance) {
     }
     // 若计数相同，根据速度决定顺序
     if (p1ActionTimes === p2ActionTimes) {
-      if (spd1 >= spd2) {
+      if (spd1 === spd2) {
+        if (!firstPlayer) {
+          firstPlayer = player1;
+        }
+        initOrder(battleField, firstPlayer, getOpponent(firstPlayer));
+        return battleField;
+      }
+      if (spd1 > spd2) {
         initOrder(battleField, player1, player2);
       }
       if (spd1 < spd2) {
