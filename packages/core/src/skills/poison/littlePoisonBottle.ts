@@ -9,7 +9,6 @@ import {
 } from "@/utils";
 import { POISON_TYPE } from ".";
 import { onAttack } from "@/logs";
-/**普通攻击 */
 const getAttackInfo = (player: PlayerInstanceProperty) => {
   const info = [`${player.name}投掷小毒瓶，施加了5点【毒药】`];
   return getRandomItem(info);

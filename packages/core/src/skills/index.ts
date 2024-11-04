@@ -18,6 +18,8 @@ import { clam } from "./firing/clam";
 import { manaBottle } from "./general/manaBottle";
 import { littlePoisonBottle } from "./poison/littlePoisonBottle";
 import { bigPoisonBottle } from "./poison/BigPoisonBottle";
+import { poisonAttack } from "./poison/poisonAttack";
+import { poisonCloud } from "./poison/poisonCloud";
 
 export const raw_skills = {
   normalAttack,
@@ -38,6 +40,8 @@ export const raw_skills = {
   //☠️毒药
   littlePoisonBottle,
   bigPoisonBottle,
+  poisonAttack,
+  poisonCloud,
   //普通技能
   manaBottle,
   skill_777,

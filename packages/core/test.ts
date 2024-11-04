@@ -18,13 +18,7 @@ const p1 = createPlayer("p1");
 setProperty(p1);
 const p2 = createPlayer("p2");
 setProperty(p2);
-p1.skills = [
-  "littlePoisonBottle",
-  "littlePoisonBottle",
-  "littlePoisonBottle",
-  "littlePoisonBottle",
-  "littlePoisonBottle",
-];
+p1.skills = ["poisonCloud"];
 
 const battleField = createBattleField(p1, p2);
 battleField.fight();
