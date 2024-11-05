@@ -30,9 +30,9 @@ export function _bigPoisonBottle(player: PlayerInstanceProperty) {
   );
 }
 export const bigPoisonBottle: Skill = {
-  name: "小毒瓶",
-  description: "小毒瓶，对敌方施加5【毒药】",
-  mana: 2,
+  name: "大毒瓶",
+  description: "大毒瓶，对敌方施加10【毒药】",
+  mana: 4,
   run: _bigPoisonBottle,
   type: [POISON_TYPE],
 };
