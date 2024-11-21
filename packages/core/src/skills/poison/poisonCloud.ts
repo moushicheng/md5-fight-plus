@@ -24,7 +24,6 @@ export function _poisonCloud(player: PlayerInstanceProperty) {
     ({ battleField, oneRoundContext }) => {
       const opponent = getOpponent(player);
       releasePoison(opponent, 2);
-      releasePoison(player, 2);
       if (first) {
         player.battleField.logger.addInfo(
           player.name + "释放了【毒雾】",
@@ -40,7 +39,7 @@ export function _poisonCloud(player: PlayerInstanceProperty) {
 }
 export const poisonCloud: Skill = {
   name: "毒雾",
-  description: "接下来的整场战斗，双方玩家每回合结束时施加【毒药】2",
+  description: "接下来的整场战斗，我方每回合结束时施加【毒药】2",
   mana: 3,
   run: _poisonCloud,
   type: [POISON_TYPE],
