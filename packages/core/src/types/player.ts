@@ -124,6 +124,7 @@ export type PlayerInstanceProperty = {
     /** 
             调整运行时属性
         **/
+    onAdjustAttack: SyncBailHook<number>;
     onAdjustManaBefore: SyncBailHook<number>;
     onAdjustMana: SyncBailHook<number>;
     onAdjustFrostbite: SyncBailHook<number>;

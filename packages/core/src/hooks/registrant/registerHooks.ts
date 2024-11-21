@@ -57,6 +57,12 @@ function initAdjustRuntime(battleField: BattleFieldInstance) {
       player.runtimeProperty.mana += val;
       return value;
     });
+    player.hooks.onAdjustAttack.tap("adjust Attack", (value) => {
+      let nextValue = player.runtimeProperty.attack + value;
+      if (nextValue < 0) nextValue = 0;
+      player.runtimeProperty.attack = nextValue;
+      return nextValue;
+    })
     player.hooks.onAdjustFrostbite.tap("adjust Frostbite", (value) => {
       let nextValue = player.runtimeProperty.frostbite + value;
       if (nextValue < 0) nextValue = 0;
