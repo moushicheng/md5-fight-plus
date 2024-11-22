@@ -8,7 +8,8 @@
     "test": "ts-node -r tsconfig-paths/register test.ts",
     "build": "tsc && tsc-alias",
     "prepublishOnly": "npm run build",
-    "preinstall": "npx only-allow pnpm"
+    "preinstall": "npx only-allow pnpm",
+    "vitest":"vitest"
   },
   "keywords": [
     "MD5",
@@ -18,11 +19,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/lodash": "^4.14.194",
+    "@types/node": "^20.1.4",
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",
     "tslib": "^2.5.0",
-    "@types/lodash": "^4.14.194",
-    "@types/node": "^20.1.4"
+    "vitest": "^2.1.5"
   },
   "dependencies": {
     "blueimp-md5": "^2.19.0",

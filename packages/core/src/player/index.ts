@@ -199,6 +199,7 @@ export const createPlayerHook = () => {
     onAdjustPoison: new SyncBailHook<number>(),
     onAdjustArmor: new SyncBailHook<number>(),
     onAdjustSpeed: new SyncBailHook<number>(),
+    onAdjustAttack: new SyncBailHook<number>(),
   };
   return hooks;
 };
