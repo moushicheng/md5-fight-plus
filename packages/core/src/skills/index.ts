@@ -20,11 +20,11 @@ import { littlePoisonBottle } from "./poison/littlePoisonBottle";
 import { bigPoisonBottle } from "./poison/BigPoisonBottle";
 import { poisonAttack } from "./poison/poisonAttack";
 import { poisonCloud } from "./poison/poisonCloud";
-import { assassinate } from "./ assassin/assassinate";
-import { finalAttack } from "./ assassin/finalAttack";
-import { gentlyAttack } from "./ assassin/gentlyAttack";
-import { sneak } from "./ assassin/sneak";
-import { waiting } from "./ assassin/waiting";
+import { assassinate } from "./assassin/assassinate";
+import { finalAttack } from "./assassin/finalAttack";
+import { gentlyAttack } from "./assassin/gentlyAttack";
+import { sneak } from "./assassin/sneak";
+import { waiting } from "./assassin/waiting";
 
 export const raw_skills = {
   normalAttack,
@@ -53,7 +53,6 @@ export const raw_skills = {
   gentlyAttack,
   sneak,
   waiting,
-
   //普通技能
   manaBottle,
   skill_777,
