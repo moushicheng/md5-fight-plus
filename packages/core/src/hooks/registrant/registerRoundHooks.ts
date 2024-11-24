@@ -5,6 +5,7 @@ import {
 } from "@/player/utils";
 import { BattleFieldInstance } from "@/types/battleField";
 import {
+  checkPlayerDeath,
   getOpponent,
   getPlayerState,
   getPlayers,
@@ -64,6 +65,21 @@ function initRoundStart(battleField: BattleFieldInstance) {
       `------------------第${battleField.roundCount}回合------------------`,
       RoundStart
     );
+    if (battleField.roundCount > 100) {
+      const { player1, player2 } = getPlayers(battleField);
+      const dmg = 1 + (battleField.roundCount - 100) * 2;
+      battleField.logger.addInfo(
+        `当前已超过100回合,双方受到${dmg}点伤害`,
+        RoundStart
+      );
+      player1.hooks.onAdjustHp.call(-dmg);
+      //死亡检测
+      const deathEvent = checkPlayerDeath(battleField);
+      if (deathEvent) throw deathEvent.message;
+
+      player2.hooks.onAdjustHp.call(-dmg);
+    }
+
     return battleField;
   });
 }

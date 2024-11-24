@@ -49,7 +49,6 @@ export function initFight(battleField: BattleFieldInstance) {
       }
       throw new RoundTimeOutEvent();
     } catch (err) {
-      console.log(err);
       const message = err.message ? err.message : err;
       battleField.logger.addInfo(`游戏结束,原因: ${message}`, "game over");
       battleField.logger.addError(`游戏结束,原因: ${message}`, "game over");
