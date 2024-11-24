@@ -89,3 +89,15 @@ test("sneak", () => {
   });
   fight(p1, p2);
 });
+
+test("double", () => {
+  const p1 = createPlayer({
+    name: "p1",
+    skills: ["double", "normalAttack"],
+  });
+  const p2 = createPlayer({
+    name: "p2",
+    skills: ["normalAttack"],
+  });
+  fight(p1, p2);
+});
