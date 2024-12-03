@@ -70,7 +70,6 @@ function initRoundStart(battleField: BattleFieldInstance) {
       const dmg = 1 + (battleField.roundCount - 100) * 2;
       battleField.logger.addInfo(
         `当前已超过100回合,双方受到${dmg}点伤害`,
-        RoundStart
       );
       player1.hooks.onAdjustHp.call(-dmg);
       //死亡检测

@@ -2,7 +2,7 @@ import { BattleFieldInstance } from "@/types/battleField";
 import { PlayerInstanceProperty } from "@/types/player";
 import { writeFile } from "fs";
 import { cloneDeep, omit } from "lodash";
-
+//RoundStart只能用一次
 export const RoundStart = "RoundStart";
 export const onUnderAttack = "onUnderAttack";
 export const onAttack = "onAttack";
