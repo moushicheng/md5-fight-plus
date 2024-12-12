@@ -32,7 +32,7 @@ function initFightStart(battleField: BattleFieldInstance) {
   });
 }
 function calRunTime(player: PlayerInstanceProperty) {
-  player.runtimeProperty.hp = player.baseProperty.CON * 15;
+  player.runtimeProperty.hp = player.baseProperty.CON * 15 + 30;
   player.runtimeProperty.attack = player.baseProperty.STR;
   player.runtimeProperty.mana = Math.round(player.baseProperty.MANA * 1.5);
   player.runtimeProperty.speed = player.baseProperty.SPD;
