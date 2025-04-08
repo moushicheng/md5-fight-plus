@@ -10,7 +10,7 @@ const getInfo = (player: PlayerInstanceProperty, atk: number) => {
 
 export function _assassinate(player: PlayerInstanceProperty) {
   player.hooks.onAttack.tap({ name: "assassinate", lives: 1 }, (props) => {
-    player.hooks.onAdjustSpeed.call(+3); //增加3点速度
+    player.hooks.onAdjustSpeed.call(+1); //增加1点速度
     const atk = player.runtimeProperty.attack;
     player.battleField.logger.addInfo(
       getInfo(player, atk),
@@ -21,8 +21,8 @@ export function _assassinate(player: PlayerInstanceProperty) {
 }
 export const assassinate: Skill = {
   name: "刺杀",
-  description: "增加3点速度，并造成一倍力量的伤害",
-  mana: 2,
+  description: "增加1点速度，并造成一倍力量的伤害",
+  mana: 1,
   run: _assassinate,
   type: [ASSASSIN_TYPE],
 };

@@ -12,7 +12,7 @@ const getInfo = (player: PlayerInstanceProperty, atk: number) => {
 
 export function _finalAttack(player: PlayerInstanceProperty) {
     player.hooks.onAttack.tap({ name: "finalAttack", lives: 1 }, (props) => {
-        const atk = player.runtimeProperty.speed * 0.5 * player.runtimeProperty.mana;
+        const atk = player.runtimeProperty.attack * 0.5 * player.runtimeProperty.mana;
         player.battleField.logger.addInfo(
             getInfo(player, atk),
             player.hooks.onAttack
@@ -23,7 +23,7 @@ export function _finalAttack(player: PlayerInstanceProperty) {
 }
 export const finalAttack: Skill = {
     name: "终结技",
-    description: "消耗自己所有魔力,每消耗一点造成0.5速度的伤害",
+    description: "消耗自己所有魔力,每消耗一点造成0.5力量的伤害",
     mana: 0,
     run: _finalAttack,
     type: [ASSASSIN_TYPE],
