@@ -28,7 +28,7 @@ export const skill_777: Skill = {
 };
 
 const getAtkAndHp = (roundTimes: number, infos: string[]) => {
-  let atk = roundTimes % 2 === 0 ? (getRandomScope(0, 7 * 3) % 7) * 7 : 0;
+  let atk = (getRandomScope(0, 7 * 3) % 7) * 7;
   const again = getRandomScope(0, 10) >= 7;
 
   infos.push(`【${atk}】`);

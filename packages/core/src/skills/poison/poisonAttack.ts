@@ -30,7 +30,7 @@ export function _poisonAttack(player: PlayerInstanceProperty) {
 }
 export const poisonAttack: Skill = {
   name: "剧毒之刃",
-  description: "对敌方造成【毒药】的伤害",
+  description: "对敌方造成【毒药】层数的伤害",
   mana: 2,
   run: _poisonAttack,
   type: [POISON_TYPE],
